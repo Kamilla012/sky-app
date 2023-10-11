@@ -1,10 +1,12 @@
+import { Link } from "react-router-dom";
+
 export default function Header(){
     return(
         <header className="flex text-[grey] text-[20px] justify-end">
 
                 
-        <a href="" className="mr-10">Login</a>
-        <a href="">Register</a>
+        <Link to="./login" className="mr-10">Login</Link>
+        <Link to="./register">Register</Link>
     </header>
     )
 }
