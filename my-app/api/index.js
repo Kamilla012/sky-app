@@ -7,14 +7,21 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10; // Zalecam wykorzystanie bardziej losowo generowanej soli.
 const username = 'admin';
 const password = 'i5ri1fNyrrImBiDp';
-
+const jwt = require('jsonwebtoken')
 const encodedPassword = encodeURIComponent(password);
+const secret = 'gdgfcds76f7asg'
 
 const connectionString = `mongodb+srv://${username}:${encodedPassword}@cluster0.8vrqt6j.mongodb.net/database?retryWrites=true&w=majority`;
 
 const User = require('./models/User');
+
+app.use(cors({
+  credentials: true,
+  origin: 'http://localhost:3000',
+}));
+
 app.use(express.json());
-app.use(cors());
+
 
 async function connectToDatabase() {
   try {
@@ -43,6 +50,27 @@ app.post('/register', async (req, res) => {
   }
 });
 
+
+app.post('/login', async (req, res) =>{
+  const {username, password} = req.body;
+  const userDoc = await User.findOne({username})
+  // res.json(userDoc)
+  const passwordMatch = await bcrypt.compare(password, userDoc.password);
+  if (passwordMatch) {
+    // loggin
+    // res.json({ message: 'Login successful' });
+
+    jwt.sign({username, id:userDoc._id}, secret, {}, (err, token)=>{
+      if(err) throw err;
+      res.cookie('token', token).json('ok')
+    })
+    // res.json()
+  } else {
+    // fail
+    res.status(401).json({ error: 'Invalid username or password' });
+  }
+
+})
 app.listen(4000);
 
 
