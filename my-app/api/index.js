@@ -10,10 +10,9 @@ const password = 'i5ri1fNyrrImBiDp';
 const jwt = require('jsonwebtoken')
 const encodedPassword = encodeURIComponent(password);
 const secret = 'gdgfcds76f7asg'
-
 const connectionString = `mongodb+srv://${username}:${encodedPassword}@cluster0.8vrqt6j.mongodb.net/database?retryWrites=true&w=majority`;
-
 const User = require('./models/User');
+const cookieParser = require('cookie-parser');
 
 app.use(cors({
   credentials: true,
@@ -21,6 +20,7 @@ app.use(cors({
 }));
 
 app.use(express.json());
+app.use(cookieParser());
 
 
 async function connectToDatabase() {
@@ -51,26 +51,63 @@ app.post('/register', async (req, res) => {
 });
 
 
-app.post('/login', async (req, res) =>{
-  const {username, password} = req.body;
-  const userDoc = await User.findOne({username})
-  // res.json(userDoc)
-  const passwordMatch = await bcrypt.compare(password, userDoc.password);
-  if (passwordMatch) {
-    // loggin
-    // res.json({ message: 'Login successful' });
+// app.post('/login', async (req, res) =>{
+//   const {username, password} = req.body;
+//   const userDoc = await User.findOne({username})
+//   // res.json(userDoc)
+//   const passwordMatch = await bcrypt.compare(password, userDoc.password);
+//   if (passwordMatch) {
+//     // loggin
+//     // res.json({ message: 'Login successful' });
 
-    jwt.sign({username, id:userDoc._id}, secret, {}, (err, token)=>{
-      if(err) throw err;
-      res.cookie('token', token).json('ok')
-    })
-    // res.json()
+//     jwt.sign({username, id:userDoc._id}, secret, {}, (err, token)=>{
+//       if(err) throw err;
+//       res.cookie('token', token).json({
+//         id:userDoc._id,
+//         username,
+//       })
+//     })
+//     // res.json()
+//   } else {
+//     // fail
+//     res.status(401).json({ error: 'Invalid username or password' });
+//   }
+
+// })
+app.post('/login', async (req,res) => {
+  const {username,password} = req.body;
+  const userDoc = await User.findOne({username});
+  const passOk = bcrypt.compareSync(password, userDoc.password);
+  if (passOk) {
+    // logged in
+    jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
+      if (err) throw err;
+      res.cookie('token', token).json({
+        id:userDoc._id,
+        username,
+      });
+    });
   } else {
-    // fail
-    res.status(401).json({ error: 'Invalid username or password' });
+    res.status(400).json('wrong credentials');
   }
+});
 
+
+
+app.get('/profile', (req, res) => {
+  const {token} = req.cookies;
+  jwt.verify(token ,secret, {}, (err, info) =>{
+    if(err) throw err;
+    res.json(info)
+  })
+  res.json(req.cookies)
 })
+
+
+app.post('/logout', (req,res) =>{
+  res.cookie('token', '').json('ok')
+})
+
 app.listen(4000);
 
 
