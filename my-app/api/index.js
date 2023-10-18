@@ -51,29 +51,7 @@ app.post('/register', async (req, res) => {
 });
 
 
-// app.post('/login', async (req, res) =>{
-//   const {username, password} = req.body;
-//   const userDoc = await User.findOne({username})
-//   // res.json(userDoc)
-//   const passwordMatch = await bcrypt.compare(password, userDoc.password);
-//   if (passwordMatch) {
-//     // loggin
-//     // res.json({ message: 'Login successful' });
 
-//     jwt.sign({username, id:userDoc._id}, secret, {}, (err, token)=>{
-//       if(err) throw err;
-//       res.cookie('token', token).json({
-//         id:userDoc._id,
-//         username,
-//       })
-//     })
-//     // res.json()
-//   } else {
-//     // fail
-//     res.status(401).json({ error: 'Invalid username or password' });
-//   }
-
-// })
 app.post('/login', async (req,res) => {
   const {username,password} = req.body;
   const userDoc = await User.findOne({username});
@@ -91,16 +69,6 @@ app.post('/login', async (req,res) => {
     res.status(400).json('wrong credentials');
   }
 });
-
-
-// app.get('/profile', (req,res) => {
-//   const {token} = req.cookies;
-//   jwt.verify(token, secret, {}, (err,info) => {
-//     if (err) throw err;
-//     res.json(info);
-//   });
-// });
-
 app.get('/profile', (req, res) =>{
   const {token} = req.cookies;
 jwt.verify(token, secret, {}, (err,info) =>{
@@ -121,128 +89,4 @@ app.post('/logout', (req,res) => {
 
 
 app.listen(4000);
-
-
-// const express = require('express')
-// const app = express();
-// const cors = require('cors');
-// const { default: mongoose } = require('mongoose');
-// const bcrypt = require('bcrypt');
-
-// const salt = 'huhfs7lf9hcsl9egcoaf';
-
-
-// const User = require('./models/User');
-// app.use(express.json());
-// app.use(cors());
-
-
-
-// async function connectToDatabase() {
-//   try {
-//     await mongoose.connect('mongodb+srv://admin:i5ri1fNyrrImBiDp@cluster0.8vrqt6j.mongodb.net/?retryWrites=true&w=majority');
-//     console.log('Connected to MongoDB');
-//   } catch (error) {
-//     console.error('Error connecting to MongoDB:', error);
-//   }
-// }
-
-// connectToDatabase();
-
-// mongoose.connect('mongodb+srv://admin:i5ri1fNyrrImBiDp@cluster0.8vrqt6j.mongodb.net/?retryWrites=true&w=majority')
-
-// app.post('/register', async (req, res) => {
-//     const { username, password } = req.body;
-//     try {
-//       const userDoc = await User.create({
-//         username, 
-//         password:bcrypt.hashSync(password, salt)
-//       });
-//       res.json(userDoc);
-//     } catch (e) {
-//       res.status(400).json(e)
-   
-//     }
-//   });
-  
-
-// app.listen(4000)
-
-// const express = require('express');
-// const app = express();
-// const cors = require('cors');
-// const mongoose = require('mongoose');
-// const User = require('./models/User');
-// app.use(express.json());
-// app.use(cors());
-
-// async function connectToDatabase() {
-//   try {
-//     await mongoose.connect('mongodb+srv://admin:i5ri1fNyrrImBiDp@cluster0.8vrqt6j.mongodb.net/?retryWrites=true&w=majority');
-//     console.log('Connected to MongoDB');
-//   } catch (error) {
-//     console.error('Error connecting to MongoDB:', error);
-//   }
-// }
-
-// connectToDatabase();
-
-
-
-// Połączenie z bazą danych
-// mongoose.connect('mongodb://localhost/mydatabase', { useNewUrlParser: true });
-
-// const db = mongoose.connection;
-
-// db.on('error', console.error.bind(console, 'Błąd połączenia:'));
-// db.once('open', () => {
-//     console.log('Połączenie z bazą danych zostało nawiązane');
-// });
-
-// app.listen(4000)
-
-// const express = require('express')
-// const app = express();
-// const cors = require('cors');
-// const { default: mongoose } = require('mongoose');
-// const bcrypt = require('bcryptjs');
-// const User = require('./models/User');
-// app.use(express.json());
-// app.use(cors());
-
-// const salt = bcrypt.genSaltSync(10);
-// const secret = 'asdfe45we45w345wegw345werjktjwertkj';
-
-// mongoose.connect('mongodb+srv://admin:i5ri1fNyrrImBiDp@cluster0.8vrqt6j.mongodb.net/?retryWrites=true&w=majority')
-
-// app.post('/register', async (req, res) => {
-//     const { username, password } = req.body;
-//     try {
-//       const userDoc = await User.create({ username, password });
-//       res.json(userDoc);
-//     } catch (error) {
-//       if (error.code === 11000) {
-//         // Błąd duplikatu klucza
-//         res.status(400).json({ error: 'Użytkownik o tej nazwie już istnieje.' });
-//       } else {
-//         res.status(500).json({ error: 'Wystąpił błąd serwera.' });
-//       }
-//     }
-//   });
-// app.post('/register', async (req,res) => {
-//   const {username,password} = req.body;
-//   try{
-//     const userDoc = await User.create({
-//       username,
-//       password:bcrypt.hashSync(password,salt),
-//     });
-//     res.json(userDoc);
-//   } catch(e) {
-//     console.log(e);
-//     res.status(400).json(e);
-//   }
-// });
-  
-
-// app.listen(4000)
 
