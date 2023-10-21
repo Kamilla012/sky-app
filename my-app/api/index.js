@@ -18,6 +18,7 @@ const uploadMiddleware = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const Post = require('./models/Post')
 
+
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:3000',
@@ -25,6 +26,15 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+// app.use(express.static('uploads'))
+// app.use('uploads', express.static(__dirname + '/uploads'))
+
+
+
+app.use('/api/uploads', express.static('api/uploads'));
+
+
+
 
 
 async function connectToDatabase() {
@@ -145,9 +155,15 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
 
 
 app.get('/post', async (req, res) => {
-  
-  res.json(await Post.find().populate('author', ['username'])).sort({createdAt: -1})
-})
+  const posts = await Post.find()
+    .populate('author', ['username'])
+    .sort({ createdAt: -1 }) // Sortowanie wyników według createdAt w kolejności malejącej
+    .limit(20); // Ograniczenie wyników do 20
+
+  res.json(posts);
+});
+
+
 
 
 app.listen(4000);
