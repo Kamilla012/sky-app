@@ -51,7 +51,8 @@ export default function Post({_id, title, summary, cover, content, createdAt, au
         </p>
 
         <p className="text-[16px]">{summary}</p>
-        {content}
+ 
+        <div className="text-white mt-6" dangerouslySetInnerHTML={{__html:content}} />
       </div>
     </div>
   );
