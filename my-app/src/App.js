@@ -10,18 +10,18 @@ import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 function App (){
     return(
-        // <UserContextProvider>
+        <UserContextProvider>
         <Routes>
             <Route path="/" element={<Layout />}>
                 <Route index element ={ <IndexPage />} />
                 <Route path={'/login'} element={<LoginPage/>}/>
-
+                <Route path={'blog'} element={<PostPage />} />
                 <Route path={'/register'} element={<RegisterPage />}/>
                 <Route path={"/create"} element={<CreatePost />} />
                 <Route path={'/post/:id'} element={<PostPage/>} />
             </Route>
         </Routes>
-    //  </UserContextProvider>
+      </UserContextProvider>
       
     )
 }

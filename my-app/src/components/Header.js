@@ -20,6 +20,8 @@ export default function Header() {
     })
     setUsername(null)
   }
+
+
 //   fetch('https://example.com/some/path/to/json')
 // .then(function (response) {
 //     return response.json();
@@ -54,13 +56,15 @@ export default function Header() {
           {username &&(
             <>
                <Link to="/create" className="mr-10">Create new post</Link>
-              <a onClick={logout} >Logout ({username})</a> 
+              <a onClick={logout} >Logout ({username})</a>
+              <Link to="./blog">Blog</Link> 
             </>
           )}
           {!username &&(
             <>
                 <Link to="./login" className="mr-10">Login</Link>
                 <Link to="./register">Register</Link>
+                <Link to="./blog">Blog</Link>
             </>
           )}
 
