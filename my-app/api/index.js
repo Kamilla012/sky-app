@@ -167,5 +167,14 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 })
 
+
+// app.get('/api/v2/studio/star-chart', (req, res) => {
+//   // Tutaj obsługujemy zapytanie do endpointu
+//   const responseData = {
+//     // Twoje dane odpowiedzi
+//   };
+//   res.json(responseData);
+// });
+
 app.listen(4000);
 

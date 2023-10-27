@@ -5,7 +5,7 @@ export default function Header() {
   const [username, setUsername] = useState(null)
   useEffect(() =>{
     fetch('http://localhost:4000/profile', {
-    // method: 'GET',
+    method: 'GET',
     credentials: 'include'
   }).then(response =>{
     response.json().then(userInfo =>{
@@ -62,25 +62,14 @@ export default function Header() {
           )}
           {!username &&(
             <>
-                <Link to="./login" className="mr-10">Login</Link>
-                <Link to="./register">Register</Link>
-                <Link to="./blog">Blog</Link>
+                <Link to="./login" >Login</Link>
+                <Link to="./register" className="mx-10">Register</Link>
+                {/* <Link to="./blog"></Link> */}
             </>
           )}
 
           
-        {/* {username &&(
-            <> */}
-              {/* <Link to="/create">Create new post</Link>
-              <a onClick={logout}>Logout ({username})</a> */}
-            {/* </>
-        )} */}
-        {/* {!username &&(
-            <> */}
-                {/* <Link to="./login" className="mr-10">Login</Link>
-                <Link to="./register">Register</Link> */}
-            {/* </>
-        )} */}
+    
         
         </nav>
                 
