@@ -6,11 +6,11 @@ const bcrypt = require('bcrypt');
 
 const saltRounds = 10; // Zalecam wykorzystanie bardziej losowo generowanej soli.
 const username = 'admin';
-const password = 'i5ri1fNyrrImBiDp';
+// const password = 'i5ri1fNyrrImBiDp';
 const jwt = require('jsonwebtoken')
-const encodedPassword = encodeURIComponent(password);
+// const encodedPassword = encodeURIComponent(password);
 const secret = 'gdgfcds76f7asg'
-const connectionString = `mongodb+srv://${username}:${encodedPassword}@cluster0.8vrqt6j.mongodb.net/database?retryWrites=true&w=majority`;
+const connectionString = `mongodb+srv://admin:admin@cluster0.ejp2zb5.mongodb.net/`
 const User = require('./models/User');
 const cookieParser = require('cookie-parser');
 const multer  = require('multer')
