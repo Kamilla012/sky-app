@@ -1,4 +1,4 @@
-Class of Orbit;Country of Operator/Owner;Apogee (Kilometers);Contractor;COSPAR Number;Country of Contractor;Country/Organization of UN Registry;Eccentricity;Launch Site;Launch Vehicle;NORAD Number;Official Name of Satellite;Operator/Owner;Perigee (Kilometers);Purpose;Users
+Class;Country;Apogee;Contractor;COSPAR;Contractor;UN;Eccentricity;LaunchSite;LaunchVehicle;NORAD;SatelliteName;Operator;Perigee;Purpose;Users
 LEO;Denmark;687;University of Aalborg;2016-025E;Denmark;NR;0.0177;Guiana Space Center;Soyuz 2.1a;41460;AAUSat-4;University of Aalborg;442;Earth Observation;Civil
 GEO;Multinational;35793;Space Systems/Loral;2014-006A;USA;NR;0.000178;Guiana Space Center;Ariane  5 ECA;39508;ABS-2;Asia Broadcast Satellite Ltd.;35778;Communications;Commercial
 GEO;Multinational;35700;Boeing Satellite Systems;2016-038A;USA;NR;0;Cape Canaveral;Falcon 9;41588;ABS-2A;Asia Broadcast Satellite Ltd.;35700;Communications;Commercial

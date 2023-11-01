@@ -17,6 +17,7 @@ const multer  = require('multer')
 const uploadMiddleware = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const Post = require('./models/Post')
+const Satellite = require('./models/Satellites');
 
 
 app.use(cors({
@@ -168,6 +169,70 @@ app.get('/post/:id', async (req, res) => {
 })
 
 
+// app.get('/api/wyszukaj', async (req, res) => {
+//   const { query } = req.query;
+
+//   try {
+//     const wyniki = await Satellite.find({
+//       $or: [
+//         { ClassOfOrbit: { $regex: query, $options: 'i' } },
+//         { CountryOfOperatorOwner: { $regex: query, $options: 'i' } },
+//         // Dodaj inne pola do wyszukiwania według potrzeb
+        
+//       ]
+//     });
+
+//     res.json(wyniki);
+//   } catch (error) {
+//     console.error(error);
+//     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania danych.' });
+//   }
+// });
+
+
+
+
+// async function getSatellites() {
+//   try {
+//     // Użyj modelu Satellite do pobrania wszystkich dokumentów z kolekcji "satellites"
+//     const satellites = await Satellite.find({}).exec();
+//     return satellites;
+//   } catch (error) {
+//     console.error('Błąd podczas pobierania danych z kolekcji:', error);
+//     throw error;
+//   }
+// }
+
+// // Wywołaj funkcję i obsłuż wynik
+// getSatellites()
+//   .then((satellites) => {
+//     console.log('Dane z kolekcji "satellites":', satellites);
+//   })
+//   .catch((error) => {
+//     console.error('Błąd:', error);
+//   });
+
+// app.get('/satelities', (req, res) =>{
+//   const sate = new Satellite
+// })
+
+app.get('/satellites', async (req, res) => {
+  try {
+    // Pobranie danych z kolekcji Satellite
+    const satellites = await Satellite.find();
+    res.json(satellites);
+
+    // Wyświetlenie danych w konsoli
+    // console.log(satellites);
+    // res.status(200).send('Dane wypisane w konsoli.'); // Możesz dodać odpowiedź HTTP
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Wystąpił błąd podczas pobierania danych z bazy danych.');
+  }
+});
+
+
 // app.get('/api/v2/studio/star-chart', (req, res) => {
 //   // Tutaj obsługujemy zapytanie do endpointu
 //   const responseData = {
@@ -175,6 +240,12 @@ app.get('/post/:id', async (req, res) => {
 //   };
 //   res.json(responseData);
 // });
+
+// app.get('/moja-sciezka', (req, res) => {
+//   // Obsługa zapytania HTTP GET na ścieżkę '/moja-sciezka'
+//   res.send('Witaj, to jest endpoint /moja-sciezka!');
+// });
+
 
 app.listen(4000);
 
