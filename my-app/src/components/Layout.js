@@ -3,6 +3,8 @@ import Header from "./Header";
 import StarsChart from "./StarsChart";
 import SearchEngine from '../pages/SearchEngine'
 import Satellites from "../components/Satellites";
+import SatellitesSearch from "./SatellitesSearch";
+
 
 export default function Layout(){
     return(
@@ -10,7 +12,8 @@ export default function Layout(){
             <Header />
             <Outlet />
             {/* <SearchEngine /> */}
-            <Satellites />
+            {/* <Satellites /> */}
+            <SatellitesSearch />
             
 
 

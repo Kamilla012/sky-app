@@ -218,9 +218,25 @@ app.get('/post/:id', async (req, res) => {
 
 app.get('/satellites', async (req, res) => {
   try {
+    const searchQuery = req.query.search;
+    if (!searchQuery) {
+      // Jeśli brak parametru "search", zwróć pustą tablicę lub odpowiedni komunikat błędu
+      return res.status(400).send('Brak danych wyszukiwania.');
+    }
     // Pobranie danych z kolekcji Satellite
-    const satellites = await Satellite.find();
+    const satellites = await Satellite.find({
+      $or: [
+        { SatelliteName: { $regex: searchQuery, $options: 'i' } }, // Wyszukaj po nazwie (case-insensitive)
+        { Country: { $regex: searchQuery, $options: 'i' } }, // Wyszukaj po kraju (case-insensitive)
+      ],
+    });
+
+    if (satellites.length === 0) {
+      return res.status(404).send('Brak pasujących danych.');
+    }
+
     res.json(satellites);
+    // res.json(satellites);
 
     // Wyświetlenie danych w konsoli
     // console.log(satellites);

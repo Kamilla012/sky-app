@@ -5,13 +5,18 @@ module.exports = {
   ],
   theme: {
     extend: {
+      
       colors: {
         primary: '#020b26',
         secondary: '#041828 ',
         grey: '515585',
         green: '#39bd2f',
         lightBlue: '#46B5D1',
-        turquoise: '#044754'
+        turquoise: '#044754',
+
+        bgNav: '#242526',
+        bgNavAccent: '#484a4d',
+        
     }
     },
   },

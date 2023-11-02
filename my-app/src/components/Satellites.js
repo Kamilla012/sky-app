@@ -13,7 +13,7 @@ function Satellites() {
   return (
     <div>
       <h1>Lista Satelitów</h1>
-      <table className='text-white'>
+      <table className='text-white text-[10px]'>
         <thead>
           <tr>
             <th>Nazwa Satelity</th>
@@ -31,7 +31,7 @@ function Satellites() {
             <th>Oficjalna Nazwa Satelity</th>
             <th>Operator/Właściciel</th>
             <th>Perigeum (km)</th>
-            <th>Cel</th>
+          
             <th>Użytkownicy</th>
           </tr>
         </thead>
