@@ -28,7 +28,7 @@ function SatellitesSearch() {
   }
 
   return (
-    <div className='min-h-screen'>
+    <div className='h-screen'>
         <h1 className={`${styles.h1}`}>Satellite finder</h1>
     <div className={`${styles.divForm} h-[200px] mb-10`}>
       

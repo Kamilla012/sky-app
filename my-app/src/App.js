@@ -9,8 +9,10 @@ import { UserContextProvider } from "./UserContext";
 import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 function App (){
+
     return(
-        <UserContextProvider>
+        
+
         <Routes>
             <Route path="/" element={<Layout />}>
                 {/* <Route index element ={ <IndexPage />} /> */}
@@ -21,7 +23,7 @@ function App (){
                 <Route path={'/post/:id'} element={<PostPage/>} />
             </Route>
         </Routes>
-      </UserContextProvider>
+     
       
     )
 }
