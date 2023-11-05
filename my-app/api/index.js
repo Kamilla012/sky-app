@@ -249,6 +249,38 @@ app.get('/satellites', async (req, res) => {
 });
 
 
+
+// const http = require("https");
+
+// const options = {
+//   "method": "POST",
+//   "hostname": "api.astronomyapi.com",
+//   "port": null,
+//   "path": "/api/v2/studio/star-chart",
+//   "headers": {
+//     "Authorization": "Basic ODgzYmE5YzItNjMxNS00MDk4LThkMzEtZjZmZDMzOTM0ZTcyOjczOGMzNTNhOGM3Y2U0OTRjMTcyYmRmNzRmZDBlMTFiYTdiMjNjNmQ5YjY5NzMxZTlmMWY5OTU3MGRlNGNlZmQyMzkyZTgwMjk5ODU1NGVkYTMxYTBmOWVkMGQyM2YyN2YzZWEyMThhMmQ3ZmFkMTBhMGNlYWYyNzhkYzVkNWQwZjVkOTllNzcxODQ0NGQ3M2ViNzU4ZTU5YWJlNDNiMzA3MmZlNmJmMmVhODM4NmQ1OTI0YWI5Y2E1ZWVjYTVhMDA2MWJlNDg3Y2U0N2I0ZWFlMzZlYmJkN2Y1MWYxY2M1"
+//   }
+// };
+
+// const req = http.request(options, function (res) {
+//   const chunks = [];
+
+//   res.on("data", function (chunk) {
+//     chunks.push(chunk);
+//   });
+
+//   res.on("end", function () {
+//     const body = Buffer.concat(chunks);
+//     console.log(body.toString());
+//   });
+// });
+
+// req.write("{\"style\":\"default\",\"observer\":{\"latitude\":33.775867,\"longitude\":-84.39733,\"date\":\"2023-11-05\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"ori\"}}}");
+// req.end();
+
+
+
+
 // app.get('/api/v2/studio/star-chart', (req, res) => {
 //   // Tutaj obsługujemy zapytanie do endpointu
 //   const responseData = {

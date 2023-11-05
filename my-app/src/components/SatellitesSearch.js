@@ -28,11 +28,11 @@ function SatellitesSearch() {
   }
 
   return (
-    <div className='h-screen'>
+    <div className='h-screen bg-primary'>
         <h1 className={`${styles.h1}`}>Satellite finder</h1>
-    <div className={`${styles.divForm} h-[200px] mb-10`}>
+    <div className={`${styles.divForm} mb-10`}>
       
-      <form className={`${styles.form}`} onSubmit={handleSearchSubmit}>
+      <form className={`${styles.form} `} onSubmit={handleSearchSubmit}>
         <input
           type="text"
           placeholder="Enter name or country"
@@ -44,7 +44,7 @@ function SatellitesSearch() {
       </form>
       </div>
     <div className='flex justify-center items-center'>
-      <table>
+      <table className='bg-primary'>
       <thead>
           <tr className={`${styles.tableTr} text-[16px]`}>
             <th className={`${styles.tableTd}`}>Satellite Name</th>

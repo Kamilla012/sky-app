@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
+
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faMoon, faHeart, faCircleDown } from '@fortawesome/free-regular-svg-icons';
+import { faSatellite, faHouse } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+
+
 import '../style'; // Import your CSS file here
 import '../index.css'
 
@@ -7,7 +15,7 @@ import '../index.css'
 const Navigation = () => {
   const Navbar = (props) => {
     return (
-      <nav className='h-[70px] bg-bgNav py-1 my-2 border-b-2 '>
+      <nav className='h-[70px] py-1 my-2 border-b-2 '>
         <ul className='max-w-full h-full flex justify-end'>
           {props.children}
         </ul>
@@ -20,13 +28,15 @@ const Navigation = () => {
 
     return (
       <li className='flex align-center justify-center w-[80px * 0.8]'>
-        <a
-          href="#"
-          className='w-[45px] h-[45px] transition ease-in-out delay-150 rounded-full mx-3 my-2 p-2 flex align-center justify-center bg-bgNavAccent hover:brightness-200'
-          onClick={() => setOpen(!open)}
-        >
-          {props.icon}
-        </a>
+       
+       <Link
+        to={props.path} // Ustawienie ścieżki na podstawie przekazanej właściwości
+        className='w-[50px] h-[50px] transition ease-in-out delay-150 rounded-full mx-3 my-2 p-3 flex align-center justify-center bg-bgNavAccent hover:brightness-200'
+        onClick={() => setOpen(!open)}
+      >
+        <FontAwesomeIcon className="text-white text-[25px]" icon={props.icon} />
+      </Link>
+       
 
         <CSSTransition
           in={open}
@@ -71,7 +81,7 @@ const Navigation = () => {
         maxHeight: activeMenu === 'main' ? '500px' : '500px', // Set a reasonable max height
       }}
       >
-        <CSSTransition
+        {/* <CSSTransition
           in={activeMenu === 'main'}
           unmountOnExit
           timeout={500}
@@ -84,9 +94,15 @@ const Navigation = () => {
               Settings
             </DropDownItem>
           </div>
-        </CSSTransition>
+        </CSSTransition> */}
+         <div>
+            <DropDownItem>My profile</DropDownItem>
+            <DropDownItem leftIcon=":>" rightIcon=":<" goToMenu="settings">
+              Settings
+            </DropDownItem>
+          </div>
 
-        <CSSTransition
+        {/* <CSSTransition
           in={activeMenu === 'settings'}
           unmountOnExit
           timeout={500}
@@ -99,17 +115,22 @@ const Navigation = () => {
             <DropDownItem>Settings</DropDownItem>
             <DropDownItem>Settings</DropDownItem>
           </div>
-        </CSSTransition>
+        </CSSTransition> */}
       </div>
     );
   };
 
   return (
     <Navbar>
-      <NavItem icon=":)" />
-      <NavItem icon=":/" />
-      <NavItem icon=":(" />
-      <NavItem icon="^">
+      <NavItem icon={faHouse} path="/"/> 
+      <NavItem icon={faStar} /> {/* Przekazanie ikony gwiazdy */}
+      <NavItem icon={faSatellite} path="/satellites">
+      </NavItem>
+      
+     
+      <NavItem icon={faMoon} /> {/* Przekazanie kolejnej ikony */}
+      {/* Przekazanie jeszcze innej ikony */}
+      <NavItem icon={faCircleDown}>
         <DropDownMenu />
       </NavItem>
     </Navbar>
