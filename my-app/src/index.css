@@ -5,3 +5,20 @@
 .bg-gradient-to-r {
   background: linear-gradient(90deg, #3ec42d, #047b49);
 }
+
+
+/* Add this to your styles.css */
+.menu_primary-entering .dropdown-content,
+.menu_primary-exiting .dropdown-content,
+.menu_secondary-entering .dropdown-content,
+.menu_secondary-exiting .dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.menu_primary-entered .dropdown-content,
+.menu_secondary-entered .dropdown-content {
+  max-height: 500px; /* Set an appropriate max height for your dropdown */
+  transition: max-height 0.5s ease;
+}
+

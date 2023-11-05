@@ -9,8 +9,17 @@ const styles = {
     tableTr: "rounded-lg border-2 border-green text-white",
     tableTd: "py-1 px-1 text-center text-[12px]",
 
-    navBorder: 'border-1 border-grey'
+    navBorder: 'border-1 border-grey',
+
+    // menuPrimaryEnter:"absolute -translate-x-full transition-transform ease-in-out duration-500",
+    // menuPrimaryEnterActive:"translate-x-0",
+    // menuPrimaryExit:"absolute",
+    // menuPrimaryExitActive:"-translate-x-full transition-transform ease-in-out duration-500",
     
+    // menuSecondaryEnter:"translate-x-full",
+    // menuSecondaryEnterActive: "translate-x-0 transition-transform ease-in-out duration-500",
+    // menuSecondaryExit: "",
+    // menuSecondaryExitActive: "translate-x-full transition-transform ease-in-out duration-500"
 
 }
 
