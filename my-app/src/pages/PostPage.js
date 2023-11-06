@@ -19,8 +19,8 @@ export default function PostPage() {
     // console.log("postInfo.author._id:", postInfo.author._id);
     if(!postInfo) return '';
     return (
-        <div className="flex justify-center mt-6">
-          <div className="flex flex-col w-[90%] text-center">
+        <div className="flex justify-center h-screen  mt-6">
+          <div className="flex flex-col w-[90%] texth-screen-center">
             <h1 className="text-[40px] text-white mb-2">{postInfo.title}</h1>
 
             <div className="flex justify-center mb-5">

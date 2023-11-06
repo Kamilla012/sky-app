@@ -7,7 +7,7 @@ import StarsChart from "./StarsChart";
 
 export default function Layout(){
     return(
-        <main className="bg-primary px-8 py-6">
+        <main className="bg-primary h-screen px-8 py-6">
             <Header />
             <Navigation />
             <Outlet />
