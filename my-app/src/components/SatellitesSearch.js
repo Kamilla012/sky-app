@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import styles from '../style';
 
+
+
 function SatellitesSearch() {
   const [searchQuery, setSearchQuery] = useState('');
   const [satellites, setSatellites] = useState([]);
@@ -92,6 +94,7 @@ function SatellitesSearch() {
         //   </li>
         ))}
       </table >
+   
       </div>
     </div>
   );
