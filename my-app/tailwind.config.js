@@ -13,6 +13,7 @@ module.exports = {
         green: '#39bd2f',
         lightBlue: '#46B5D1',
         turquoise: '#044754',
+        darkGreen: '#14532d',
 
         bgNav: '#242526',
         bgNavAccent: '#484a4d',

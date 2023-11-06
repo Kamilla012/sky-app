@@ -9,6 +9,7 @@ import { UserContextProvider } from "./UserContext";
 import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 import SatellitesSearch from './components/SatellitesSearch'
+import StarsChart from "./components/StarsChart";
 function App (){
 
     return(
@@ -24,6 +25,7 @@ function App (){
                 <Route path={"/create"} element={<CreatePost />} />
                 <Route path={'/post/:id'} element={<PostPage/>} />
                 <Route path="/satellites" element={<SatellitesSearch />} />
+                <Route path={"/starsCharts"} element={<StarsChart />} />
 {/*                
                 <Route path="/" element={<SatellitesSearch /> } /> */}
             </Route>

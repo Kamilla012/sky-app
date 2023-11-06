@@ -123,7 +123,7 @@ const Navigation = () => {
   return (
     <Navbar>
       <NavItem icon={faHouse} path="/"/> 
-      <NavItem icon={faStar} /> {/* Przekazanie ikony gwiazdy */}
+      <NavItem icon={faStar} path="/starsCharts" /> {/* Przekazanie ikony gwiazdy */}
       <NavItem icon={faSatellite} path="/satellites">
       </NavItem>
       

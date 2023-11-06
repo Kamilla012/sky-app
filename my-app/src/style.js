@@ -11,6 +11,8 @@ const styles = {
 
     navBorder: 'border-1 border-grey',
 
+    option: "text-darkGreen"
+
     // menuPrimaryEnter:"absolute -translate-x-full transition-transform ease-in-out duration-500",
     // menuPrimaryEnterActive:"translate-x-0",
     // menuPrimaryExit:"absolute",

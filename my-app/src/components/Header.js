@@ -51,19 +51,19 @@ export default function Header() {
   
     // const username = userInfo?.username;
     return(
-        <header className="flex text-[grey] text-[20px] justify-end">
+        <header className="flex text-[grey] text-[20px] px-10 pt-5 justify-end">
         <nav>
           {username &&(
             <>
                <Link to="/create" className="mr-10">Create new post</Link>
               <a onClick={logout} >Logout ({username})</a>
-              <Link to="./blog">Blog</Link> 
+              <Link  className="mx-5" to="./blog">Blog</Link> 
             </>
           )}
           {!username &&(
             <>
                 <Link to="./login" >Login</Link>
-                <Link to="./register" className="mx-10">Register</Link>
+                <Link to="./register" className="mx-5">Register</Link>
                 {/* <Link to="./blog"></Link> */}
             </>
           )}
