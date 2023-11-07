@@ -10,6 +10,7 @@ import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 import SatellitesSearch from './components/SatellitesSearch'
 import StarsChart from "./components/StarsChart";
+import Home from "./pages/Home";
 function App (){
 
     return(
@@ -17,6 +18,7 @@ function App (){
 
         <Routes>
                 <Route path="/" element={<Layout />}>
+                <Route path='/' element={<Home />} />
                 {/* <Route index element={<Header />} />    */}
                 {/* <Route index element ={ <IndexPage />} /> */}
                 <Route path={'/login'} element={<LoginPage/>}/>

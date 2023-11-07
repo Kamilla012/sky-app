@@ -42,11 +42,11 @@ const StarsChart = () => {
   }
 
   return (
-    <div className="m-10 flex justify-center gap-[10%]">
+    <div className="bg-primary m-10 flex justify-center">
       {/* Render the image */}
       <div className="">
     
-      <img  src={imageUrl} alt="Star Chart" />
+      <img className="w-[80%]" src={imageUrl} alt="Star Chart" />
     </div>
     {/* Andromeda 
     Antila
