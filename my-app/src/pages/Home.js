@@ -4,7 +4,7 @@ import { StarsInfo } from '../components/StarsInfo'
 
 const Home = () => {
   return (
-    <div>
+    <div className=' bg-primary'>
     <div><SateliteInfo /></div>
     <div><StarsInfo/></div>
     </div>
