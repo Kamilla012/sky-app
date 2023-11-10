@@ -16,13 +16,13 @@ const constellations = [
 
 export const StarsInfo = () => {
   return (
-    <div className='bg-secondary w-[60%] py-5'>
+    <div className='bg-secondary w-[100%] lg:w-[55%] py-5'>
       <h2 className={`${styles.h2}`}>Constellations</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-[75%] max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 w-[75%] max-w-4xl mx-auto">
         {constellations.map((constellation, index) => (
           <div key={index} className='m-3 relative'>
             <img src={constellation.image} alt={constellation.name} />
-            <Link to={"/starsCharts"} className='absolute left-[28%] bottom-[-2%] bg-green px-10 py-1 text-white rounded-full'>
+            <Link to={"/starsCharts"} className='absolute sm:left-[35%] xl:left-[18%] bottom-[-2%] bg-green px-10 py-1 text-white rounded-full'>
               {constellation.name}
             </Link>
           </div>

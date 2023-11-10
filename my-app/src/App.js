@@ -22,12 +22,16 @@ function App (){
                 {/* <Route index element={<Header />} />    */}
                 {/* <Route index element ={ <IndexPage />} /> */}
                 <Route path={'/login'} element={<LoginPage/>}/>
-                <Route path={'blog'} element={<IndexPage />} />
+                <Route path='/blog' element={<IndexPage showAllPosts={true} />} />
+
                 <Route path={'/register'} element={<RegisterPage />}/>
                 <Route path={"/create"} element={<CreatePost />} />
                 <Route path={'/post/:id'} element={<PostPage/>} />
                 <Route path="/satellites" element={<SatellitesSearch />} />
                 <Route path={"/starsCharts"} element={<StarsChart />} />
+                
+
+
 {/*                
                 <Route path="/" element={<SatellitesSearch /> } /> */}
             </Route>

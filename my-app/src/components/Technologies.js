@@ -8,11 +8,15 @@ const Technologies = () => {
   const iconNames = [faReact, faNode, faDatabase, faGithub];
 
   return (
-    <div className='flex justify-center w'>
+    <div className='flex justify-center'>
+
+
+    <div className='grid grid-cols-2 md:grid-cols-4 pb-10'>
 
       {iconNames.map((icon, index) => (
-        <FontAwesomeIcon key={index} icon={icon} className='text-white  p-10 m-5 text-[70px]' />
+        <FontAwesomeIcon key={index} icon={icon} className='text-white shadow-lg shadow-green rounded-xl p-8 m-5 text-[60px]' />
       ))}
+    </div>
     </div>
   );
 };
