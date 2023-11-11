@@ -18,6 +18,7 @@ const uploadMiddleware = multer({ dest: 'uploads/' })
 const fs = require('fs');
 const Post = require('./models/Post')
 const Satellite = require('./models/Satellites');
+const Planets = require('./models/Planets')
 
 
 app.use(cors({
@@ -169,53 +170,6 @@ app.get('/post/:id', async (req, res) => {
 })
 
 
-// app.get('/api/wyszukaj', async (req, res) => {
-//   const { query } = req.query;
-
-//   try {
-//     const wyniki = await Satellite.find({
-//       $or: [
-//         { ClassOfOrbit: { $regex: query, $options: 'i' } },
-//         { CountryOfOperatorOwner: { $regex: query, $options: 'i' } },
-//         // Dodaj inne pola do wyszukiwania według potrzeb
-        
-//       ]
-//     });
-
-//     res.json(wyniki);
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ error: 'Wystąpił błąd podczas wyszukiwania danych.' });
-//   }
-// });
-
-
-
-
-// async function getSatellites() {
-//   try {
-//     // Użyj modelu Satellite do pobrania wszystkich dokumentów z kolekcji "satellites"
-//     const satellites = await Satellite.find({}).exec();
-//     return satellites;
-//   } catch (error) {
-//     console.error('Błąd podczas pobierania danych z kolekcji:', error);
-//     throw error;
-//   }
-// }
-
-// // Wywołaj funkcję i obsłuż wynik
-// getSatellites()
-//   .then((satellites) => {
-//     console.log('Dane z kolekcji "satellites":', satellites);
-//   })
-//   .catch((error) => {
-//     console.error('Błąd:', error);
-//   });
-
-// app.get('/satelities', (req, res) =>{
-//   const sate = new Satellite
-// })
-
 app.get('/satellites', async (req, res) => {
   try {
     const searchQuery = req.query.search;
@@ -226,8 +180,8 @@ app.get('/satellites', async (req, res) => {
     // Pobranie danych z kolekcji Satellite
     const satellites = await Satellite.find({
       $or: [
-        { SatelliteName: { $regex: searchQuery, $options: 'i' } }, // Wyszukaj po nazwie (case-insensitive)
-        { Country: { $regex: searchQuery, $options: 'i' } }, // Wyszukaj po kraju (case-insensitive)
+        { SatelliteName: { $regex: searchQuery, $options: 'i' } }, 
+        { Country: { $regex: searchQuery, $options: 'i' } }, 
       ],
     });
 
@@ -236,17 +190,33 @@ app.get('/satellites', async (req, res) => {
     }
 
     res.json(satellites);
-    // res.json(satellites);
-
-    // Wyświetlenie danych w konsoli
-    // console.log(satellites);
-    // res.status(200).send('Dane wypisane w konsoli.'); // Możesz dodać odpowiedź HTTP
+  
 
   } catch (error) {
     console.error(error);
     res.status(500).send('Wystąpił błąd podczas pobierania danych z bazy danych.');
   }
 });
+
+
+app.get('/planets', async (req, res) => {
+  try {
+    const planets = await Planets.find();
+
+    if (planets.length === 0) {
+      return res.status(404).send('Brak danych planet.');
+    }
+
+
+    res.json(planets);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Wystąpił błąd podczas pobierania danych z bazy danych.');
+  }
+});
+
+
+
 
 
 

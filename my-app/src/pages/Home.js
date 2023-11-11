@@ -3,6 +3,8 @@ import SateliteInfo from '../components/SateliteInfo'
 import { StarsInfo } from '../components/StarsInfo'
 import Technologies from '../components/Technologies'
 import IndexPage from './IndexPage'
+import PlanetCanvas from '../components/TwoSpheres'
+import SolarSystem from './SolarSystem'
 
 const Home = () => {
   return (
@@ -11,8 +13,7 @@ const Home = () => {
     <Technologies />
 
       <StarsInfo/>
-      {/* <IndexPage showAllPosts={false} /> */}
-    
+      <SolarSystem />
     </div>
 
   )

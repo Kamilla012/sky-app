@@ -22,7 +22,7 @@ export const StarsInfo = () => {
         {constellations.map((constellation, index) => (
           <div key={index} className='m-3 relative'>
             <img src={constellation.image} alt={constellation.name} />
-            <Link to={"/starsCharts"} className='absolute sm:left-[35%] xl:left-[18%] bottom-[-2%] bg-green px-10 py-1 text-white rounded-full'>
+            <Link to={"/starsCharts"} className='absolute sm:left-[30%] xl:left-[18%] bottom-[-2%] bg-green px-10 py-1 text-white rounded-full'>
               {constellation.name}
             </Link>
           </div>
