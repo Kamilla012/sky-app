@@ -25,11 +25,13 @@ const PlanetsComponent = () => {
   return (
     <div>
       <h1>Planets List</h1>
+      <div className='flex items-center justify-center'>
       {planets.map((planet) => (
-       <div key={planet._id} style={{ width: `${planet.size * 0.0001}px` }} className="planet bg-blue-500 text-white p-2 rounded-md mb-2">
+       <div key={planet._id} style={{ width: `${planet.Size / 500}px`,  height: `${planet.Size / 500}px` }}  className="m-5 rounded-full bg-blue-500 text-white p-2  mb-2">
             
         </div>
       ))}
+    </div>
     </div>
   );
 };
