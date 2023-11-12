@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from 'react';
-
+import mercury from '../images/planets/Mercury.png'
+import styles from '../style';
 const PlanetsComponent = () => {
   const [planets, setPlanets] = useState([]);
+  const planetsImages = [
+    { name: 'Mercury', image: require('../images/planets/Mercury.png') },
+    { name: 'Venus', image: require('../images/planets/Venus.png') },
+    { name: 'Earth', image: require('../images/planets/Earth.png') },
+    { name: 'Mars', image: require('../images/planets/Mars.png') },
+    { name: 'Jupiter', image: require('../images/planets/Jupiter.png') },
+    { name: 'Saturn', image: require('../images/planets/Saturn.png') },
+    { name: 'Uranus', image: require('../images/planets/Uranus.png') },
+    { name: 'Neptune', image: require('../images/planets/Neptune.png') },
+   
+  ];
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -24,16 +36,19 @@ const PlanetsComponent = () => {
 
   return (
     <div>
-      <h1>Planets List</h1>
+      <h1 className={`${styles.h2} mt-10`}>Solar System</h1>
+
       <div className='flex items-center justify-center'>
-      {planets.map((planet) => (
-       <div key={planet._id} style={{ width: `${planet.Size / 500}px`,  height: `${planet.Size / 500}px` }}  className="m-5 rounded-full bg-blue-500 text-white p-2  mb-2">
-            
-        </div>
-      ))}
-    </div>
+        {planets.map((planet, index) => (
+          <div key={index} className='m-3 relative'>
+            <img src={planetsImages[index].image} alt={planet.Planet}  />
+            <p className='text-white'>{planet.Planet}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
+
 
 export default PlanetsComponent;
