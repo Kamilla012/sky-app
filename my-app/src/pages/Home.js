@@ -9,10 +9,17 @@ import SolarSystem from './SolarSystem'
 const Home = () => {
   return (
     <div className='bg-primary'>
-    <div><SateliteInfo /></div>
-    <Technologies />
+    <div>
+    <SateliteInfo />
 
-      <StarsInfo/>
+    
+    </div>
+    <Technologies />
+    {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
+    <StarsInfo/>
+    {/* <IndexPage showAllPosts={false} />
+    </div> */}
+  
       <SolarSystem />
     </div>
 

@@ -3,6 +3,7 @@ import mercury from '../images/planets/Mercury.png'
 import styles from '../style';
 const PlanetsComponent = () => {
   const [planets, setPlanets] = useState([]);
+  const [selectedPlanet, setSelectedPlanet] = useState(null)
   const planetsImages = [
     { name: 'Mercury', image: require('../images/planets/Mercury.png') },
     { name: 'Venus', image: require('../images/planets/Venus.png') },
@@ -34,18 +35,36 @@ const PlanetsComponent = () => {
     fetchPlanets();
   }, []); 
 
+
+  const handlePlanetClick = (index) => {
+    setSelectedPlanet((prevSelected) => (prevSelected === index ? null : index));
+  };
+
   return (
     <div>
       <h1 className={`${styles.h2} mt-10`}>Solar System</h1>
 
       <div className='flex items-center justify-center'>
         {planets.map((planet, index) => (
-          <div key={index} className='m-3 relative'>
+          <div key={index} className='m-3 relative' onClick={() => handlePlanetClick(index)}>
             <img src={planetsImages[index].image} alt={planet.Planet}  />
-            <p className='text-white'>{planet.Planet}</p>
+            {/* <p className='text-white'>{planet.Planet}</p> */}
+
+            {selectedPlanet === index && (
+            <div className='popup absolute bottom-[90%] left-[30%] text-white bg-secondary p-5 rounded-md'>
+              <h5 className='w-[150px] text-green text-[28px] mb-2 '>{planet.Planet}</h5>
+              <p>Distance from Sun: {planet.Distance}</p>
+              <p>Size: {planet.Size}</p>
+              <p>Orbital Period: {planet.OrbitalPeriod}</p>
+              <p>Rotation Period: {planet.RotationPeriod}</p>
+              <p>Type: {planet.Type}</p>
+              <p>Moons: {planet.Moons}</p>
+            </div>
+            
+             )}
           </div>
         ))}
-      </div>
+      </div> 
     </div>
   );
 };

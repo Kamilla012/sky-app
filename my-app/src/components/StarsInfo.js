@@ -16,7 +16,7 @@ const constellations = [
 
 export const StarsInfo = () => {
   return (
-    <div className='bg-secondary w-[100%] lg:w-[55%] py-5'>
+    <div className='bg-secondary py-5'>
       <h2 className={`${styles.h2}`}>Constellations</h2>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 w-[75%] max-w-4xl mx-auto">
         {constellations.map((constellation, index) => (
