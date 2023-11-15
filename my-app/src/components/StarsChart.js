@@ -28,7 +28,7 @@ const StarsChart = () => {
 
   useEffect(() => {
     fetchData();
-  }, []); // Empty dependency array to ensure useEffect runs only once on mount
+  }, []); 
 
   const [selectedPlanet, setSelectedPlanet] = useState('');
 
