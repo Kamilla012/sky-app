@@ -9,7 +9,7 @@ import StarsChart from "./StarsChart";
 
 export default function Layout(){
     return(
-        <main className="bg-primary h-screen">
+        <main className="bg-primary h-[150vh]">
             <Header />
             <Navigation />
             <Outlet />

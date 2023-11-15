@@ -50,11 +50,12 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, email, password } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const userDoc = await User.create({
       username,
+      email,
       password: hashedPassword,
     });
     res.json(userDoc);

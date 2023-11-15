@@ -1,5 +1,5 @@
 const styles = {
-    divForm: "flex justify-center items-center",
+    divForm: "flex justify-center items-center m-10",
     form: "w-[600px] flex flex-col p-10 rounded-lg border-2 border-green",
     inputForm: "mb-5 py-1 px-2 p-2 my-2 rounded-md",
     h2: "text-2xl font-bold text-green-500 mb-10 text-[35px] text-green text-center",
@@ -13,15 +13,7 @@ const styles = {
 
     option: "text-darkGreen"
 
-    // menuPrimaryEnter:"absolute -translate-x-full transition-transform ease-in-out duration-500",
-    // menuPrimaryEnterActive:"translate-x-0",
-    // menuPrimaryExit:"absolute",
-    // menuPrimaryExitActive:"-translate-x-full transition-transform ease-in-out duration-500",
-    
-    // menuSecondaryEnter:"translate-x-full",
-    // menuSecondaryEnterActive: "translate-x-0 transition-transform ease-in-out duration-500",
-    // menuSecondaryExit: "",
-    // menuSecondaryExitActive: "translate-x-full transition-transform ease-in-out duration-500"
+
 
 }
 
