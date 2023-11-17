@@ -7,12 +7,12 @@ export default function RegisterPage() {
     const [email, setEmail] = useState('');
     const [profileImage, setProfileImage] = useState(null)
     const ProfileImages = [
-      { name: 'Default1', image: require('../images/profilePhotos/Default1.png') },
-      { name: 'Default2', image: require('../images/profilePhotos/Default2.png') },
-      { name: 'Default3', image: require('../images/profilePhotos/Default3.png') },
-      { name: 'Default4', image: require('../images/profilePhotos/Default4.png') },
-      { name: 'Default5', image: require('../images/profilePhotos/Default5.png') },
-      { name: 'Default6', image: require('../images/profilePhotos/Default6.png') },
+      { name: 'Default1', image: require('../images/profilePhotos/Default1.jpg') },
+      { name: 'Default2', image: require('../images/profilePhotos/Default2.jpg') },
+      { name: 'Default3', image: require('../images/profilePhotos/Default3.jpg') },
+      { name: 'Default4', image: require('../images/profilePhotos/Default4.jpg') },
+      { name: 'Default5', image: require('../images/profilePhotos/Default5.jpg') },
+      { name: 'Default6', image: require('../images/profilePhotos/Default6.jpg') },
      
      
     ];
@@ -22,7 +22,7 @@ export default function RegisterPage() {
 
         const response = await fetch('http://localhost:4000/register', {
             method: 'POST',
-            body: JSON.stringify({ username, email, password }),
+            body: JSON.stringify({ username, email, password, profileImage }),
             headers: { 'Content-Type': 'application/json' },
         });
 
@@ -64,7 +64,7 @@ export default function RegisterPage() {
                     className={`${styles.inputForm}`}
                 />
 
-        <div className="flex flex-wrap bg-primar">
+        <div className="flex flex-wrap justify-center bg-primar">
           {ProfileImages.map((profile, index) => (
             <img
               key={index}
@@ -73,7 +73,7 @@ export default function RegisterPage() {
               onClick={() => handleProfileImageClick(index)}
                         className={`${styles.profileImage} ${
                             profileImage === index ? '' : 'opacity-60'
-                        } w-[120px] m-2`}
+                        } w-[150px] m-2 rounded-full`}
             />
           ))}
         </div>

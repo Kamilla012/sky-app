@@ -50,13 +50,14 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, profileImage} = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const userDoc = await User.create({
       username,
       email,
       password: hashedPassword,
+      profileImage
     });
     res.json(userDoc);
   } catch (error) {
@@ -98,36 +99,6 @@ app.post('/logout', (req,res) => {
   res.clearCookie('token').json('ok');
 })
 
-// app.post('/logout', (req,res) => {
-//   // res.cookie('token', '').json('ok');
-// });
-
-// app.post('/post', uploadMiddleware.single('file'), async (req, res) =>{
-//   //change name of file
-//   const {originalname, path} = req.file
-//   const parts = originalname.split('.')
-//   const ext = parts[parts.length - 1]
-//   const newPath = path+'.'+ext
-//   fs.renameSync(path, newPath)
-//   // res.json({ext})
-
-//   const {token} = req.cookies;
-
-//   jwt.verify(token, secret, {}, async (err,info) =>{
-//     if(err) throw err;
-//     res.json(info)
-//     const {title, summary, content} = req.body
-//     //saving dates
-//     const postDoc = await Post.create({
-//       title, 
-//       summary,
-//       content,
-//       cover: newPath,
-//       author:info.id
-//     })
-    
-//   res.json(postDoc)
-//   }) 
 
 app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
   const {originalname,path} = req.file;
