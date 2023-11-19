@@ -189,7 +189,27 @@ app.get('/planets', async (req, res) => {
 
 
 
+app.get('/myprofile', async (req, res) => {
+  try {
 
+    const user = await User.findOne({});
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+
+    res.json({
+      username: user.username,
+      email: user.email,
+      profileImage: user.profileImage,
+
+    });
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 
 

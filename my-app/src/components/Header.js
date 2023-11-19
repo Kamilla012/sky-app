@@ -1,78 +1,54 @@
-import {Link} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
-import {UserContext} from "../UserContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 export default function Header() {
-  const [username, setUsername] = useState(null)
-  useEffect(() =>{
+  const [username, setUsername] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
     fetch('http://localhost:4000/profile', {
-    method: 'GET',
-    credentials: 'include'
-  }).then(response =>{
-    response.json().then(userInfo =>{
-      setUsername(userInfo.username)
-    })
-  })
+      method: 'GET',
+      credentials: 'include'
+    }).then(response => {
+      response.json().then(userInfo => {
+        setUsername(userInfo.username);
+      });
+    });
   }, []);
-  function logout(){
+
+  function logout() {
     fetch('http://localhost:4000/logout', {
-    method: 'POST',
-    credentials: 'include'
+      method: 'POST',
+      credentials: 'include'
     })
-    setUsername(null)
+      .then(() => {
+        setUsername(null);
+        // You may want to redirect to the login page or another appropriate page
+        navigate('/login');
+      })
+      .catch(error => console.error('Logout error:', error));
   }
 
-
-//   fetch('https://example.com/some/path/to/json')
-// .then(function (response) {
-//     return response.json();
-// })
-// .then(function (data) {
-//     // Do something with data
-// });
-    // const {setUserInfo,userInfo} = useContext(UserContext);
-    // useEffect(() => {
-    //   fetch('http://localhost:4000/profile', {
-    //     credentials: 'include',
-    //   }).then(response => {
-    //     return response.json();
-    //     // response.json().then(userInfo => {
-    //     //   setUserInfo(userInfo);
-    //     // });
-    //   });
-    // }, []);
-  
-    // function logout() {
-    //   fetch('http://localhost:4000/logout', {
-    //     credentials: 'include',
-    //     method: 'POST',
-    //   });
-    //   setUserInfo(null);
-    // }
-  
-    // const username = userInfo?.username;
-    return(
-        <header className="flex text-[grey] text-[20px] px-10 pt-5 justify-end">
-        <nav>
-          {username &&(
-            <>
-               <Link to="/create" className="mr-10">Create new post</Link>
-              <a onClick={logout} >Logout ({username})</a>
-              <Link  className="mx-5" to="./blog">Blog</Link> 
-            </>
-          )}
-          {!username &&(
-            <>
-                <Link to="./login" >Login</Link>
-                <Link to="./register" className="mx-5">Register</Link>
-                {/* <Link to="./blog"></Link> */}
-            </>
-          )}
-
-          
-    
-        
-        </nav>
-                
+  return (
+    <header className="flex text-[grey] text-[20px] px-10 pt-5 justify-end">
+      <nav>
+        {username && (
+          <>
+            <Link to="/profile" className="mr-10">
+              My profile
+            </Link>
+            <a onClick={logout}>Logout ({username})</a>
+          </>
+        )}
+        {!username && (
+          <>
+            <Link to="./login">Login</Link>
+            <Link to="./register" className="mx-5">
+              Register
+            </Link>
+          </>
+        )}
+      </nav>
     </header>
-    )
+  );
 }

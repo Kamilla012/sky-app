@@ -7,14 +7,12 @@ export default function RegisterPage() {
     const [email, setEmail] = useState('');
     const [profileImage, setProfileImage] = useState(null)
     const ProfileImages = [
-      { name: 'Default1', image: require('../images/profilePhotos/Default1.jpg') },
-      { name: 'Default2', image: require('../images/profilePhotos/Default2.jpg') },
-      { name: 'Default3', image: require('../images/profilePhotos/Default3.jpg') },
-      { name: 'Default4', image: require('../images/profilePhotos/Default4.jpg') },
-      { name: 'Default5', image: require('../images/profilePhotos/Default5.jpg') },
-      { name: 'Default6', image: require('../images/profilePhotos/Default6.jpg') },
-     
-     
+      { name: 'Default1', path: require('../images/profilePhotos/Default1.jpg') },
+      { name: 'Default2', path: require('../images/profilePhotos/Default2.jpg') },
+      { name: 'Default3', path: require('../images/profilePhotos/Default3.jpg') },
+      { name: 'Default4', path: require('../images/profilePhotos/Default4.jpg') },
+      { name: 'Default5', path: require('../images/profilePhotos/Default5.jpg') },
+      { name: 'Default6', path: require('../images/profilePhotos/Default6.jpg') },
     ];
 
     async function register(ev) {
@@ -32,9 +30,10 @@ export default function RegisterPage() {
             alert('Registration failed');
         }
     }
-    const handleProfileImageClick = (index) => {
-        setProfileImage((prevSelected) => (prevSelected === index ? null : index));
-      };
+
+    const handleProfileImageClick = (path) => {
+        setProfileImage((prevSelected) => (prevSelected === path ? null : path));
+    };
 
     return (
         <div className={`${styles.divForm} bg-primary `}>
@@ -64,20 +63,20 @@ export default function RegisterPage() {
                     className={`${styles.inputForm}`}
                 />
 
-        <div className="flex flex-wrap justify-center bg-primar">
-          {ProfileImages.map((profile, index) => (
-            <img
-              key={index}
-              src={profile.image}
-              alt={profile.name}
-              onClick={() => handleProfileImageClick(index)}
-                        className={`${styles.profileImage} ${
-                            profileImage === index ? '' : 'opacity-60'
-                        } w-[150px] m-2 rounded-full`}
-            />
-          ))}
-        </div>
-                
+                <div className="flex flex-wrap justify-center bg-primar">
+                    {ProfileImages.map((profile) => (
+                        <img
+                            key={profile.name}
+                            src={profile.path}
+                            alt={profile.name}
+                            onClick={() => handleProfileImageClick(profile.path)}
+                            className={`${styles.profileImage} ${
+                                profileImage === profile.path ? '' : 'opacity-60'
+                            } w-[150px] m-2 rounded-full`}
+                        />
+                    ))}
+                </div>
+
                 <button className={styles.buttonForm}>Register</button>
             </form>
         </div>
