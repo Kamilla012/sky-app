@@ -1,64 +1,78 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-
+import {Link} from "react-router-dom";
+import {useContext, useEffect, useState} from "react";
+import {UserContext} from "../UserContext";
 export default function Header() {
-  const [username, setUsername] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
+  const [username, setUsername] = useState(null)
+  useEffect(() =>{
     fetch('http://localhost:4000/profile', {
-      method: 'GET',
-      credentials: 'include', // Ustawienie credentials na 'include' przekazuje ciasteczka sesji
+    method: 'GET',
+    credentials: 'include'
+  }).then(response =>{
+    response.json().then(userInfo =>{
+      setUsername(userInfo.username)
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error(`Error: ${response.status}`);
-        }
-      })
-      .then(userInfo => {
-        setUsername(userInfo.username);
-      })
-      .catch(error => {
-        console.error('Profile fetch error:', error);
-        // Jeśli sesja wygasła lub użytkownik nie jest zalogowany, możesz przekierować na stronę logowania
-        navigate('/login');
-      });
+  })
   }, []);
-
-  function logout() {
+  function logout(){
     fetch('http://localhost:4000/logout', {
-      method: 'POST',
-      credentials: 'include',
+    method: 'POST',
+    credentials: 'include'
     })
-      .then(() => {
-        setUsername(null);
-        navigate('/login');
-      })
-      .catch(error => console.error('Logout error:', error));
+    setUsername(null)
   }
 
-  return (
-    <header className="flex text-[grey] text-[20px] px-10 pt-5 justify-end">
-      <nav>
-        {username && (
-          <>
-            <Link to="/profile" className="mr-10">
-              My profile
-            </Link>
-            <a onClick={logout}>Logout ({username})</a>
-          </>
-        )}
-        {!username && (
-          <>
-            <Link to="/login">Login</Link>
-            <Link to="/register" className="mx-5">
-              Register
-            </Link>
-          </>
-        )}
-      </nav>
+
+//   fetch('https://example.com/some/path/to/json')
+// .then(function (response) {
+//     return response.json();
+// })
+// .then(function (data) {
+//     // Do something with data
+// });
+    // const {setUserInfo,userInfo} = useContext(UserContext);
+    // useEffect(() => {
+    //   fetch('http://localhost:4000/profile', {
+    //     credentials: 'include',
+    //   }).then(response => {
+    //     return response.json();
+    //     // response.json().then(userInfo => {
+    //     //   setUserInfo(userInfo);
+    //     // });
+    //   });
+    // }, []);
+  
+    // function logout() {
+    //   fetch('http://localhost:4000/logout', {
+    //     credentials: 'include',
+    //     method: 'POST',
+    //   });
+    //   setUserInfo(null);
+    // }
+  
+    // const username = userInfo?.username;
+    return(
+        <header className="flex text-[grey] text-[20px] px-10 pt-5 justify-end">
+        <nav>
+          {username &&(
+            <>
+               <Link to="/create" className="mr-10">Create new post</Link>
+              <a onClick={logout} >Logout ({username})</a>
+              <Link  className="mx-5" to="./blog">Blog</Link> 
+            </>
+          )}
+          {!username &&(
+            <>
+                <Link to="./login" >Login</Link>
+                <Link to="./register" className="mx-5">Register</Link>
+                {/* <Link to="./blog"></Link> */}
+            </>
+          )}
+
+          
+    
+        
+        </nav>
+                
     </header>
-  );
+    )
 }
