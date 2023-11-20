@@ -2,6 +2,8 @@ import styles from "../style";
 import { useState } from "react";
 
 export default function RegisterPage() {
+    const [name, setname] = useState('');
+    const [lastname, setlastname] = useState('');
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -20,7 +22,7 @@ export default function RegisterPage() {
 
         const response = await fetch('http://localhost:4000/register', {
             method: 'POST',
-            body: JSON.stringify({ username, email, password, profileImage }),
+            body: JSON.stringify({name, lastname, username, email, password, profileImage }),
             headers: { 'Content-Type': 'application/json' },
         });
 
@@ -40,6 +42,21 @@ export default function RegisterPage() {
             <form onSubmit={register} className={`${styles.form}`}>
                 <h2 className={`${styles.h2}`}>Register</h2>
 
+                <input
+                    type="text"
+                    placeholder="name"
+                    value={name}
+                    onChange={(ev) => setname(ev.target.value)}
+                    className={`${styles.inputForm}`}
+                />
+
+                 <input
+                    type="text"
+                    placeholder="lastname"
+                    value={lastname}
+                    onChange={(ev) => setlastname(ev.target.value)}
+                    className={`${styles.inputForm}`}
+                />
                 <input
                     type="text"
                     placeholder="username"

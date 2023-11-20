@@ -3,23 +3,19 @@ const app = express();
 const cors = require('cors');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const session = require('express-session');
 
-const saltRounds = 10; // Zalecam wykorzystanie bardziej losowo generowanej soli.
-const username = 'admin';
-// const password = 'i5ri1fNyrrImBiDp';
-const jwt = require('jsonwebtoken')
-// const encodedPassword = encodeURIComponent(password);
-const secret = 'gdgfcds76f7asg'
-const connectionString = `mongodb+srv://admin:admin@cluster0.ejp2zb5.mongodb.net/`
+const saltRounds = 10;
+const secret = 'gdgfcds76f7asg';
+const connectionString = `mongodb+srv://admin:admin@cluster0.ejp2zb5.mongodb.net/`;
 const User = require('./models/User');
 const cookieParser = require('cookie-parser');
-const multer  = require('multer')
-const uploadMiddleware = multer({ dest: 'uploads/' })
+const multer = require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/' });
 const fs = require('fs');
-const Post = require('./models/Post')
+const Post = require('./models/Post');
 const Satellite = require('./models/Satellites');
-const Planets = require('./models/Planets')
-
+const Planets = require('./models/Planets');
 
 app.use(cors({
   credentials: true,
@@ -28,8 +24,14 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
-// app.use(express.static('uploads'))
-// app.use('uploads', express.static(__dirname + '/uploads'))
+app.use(session({
+  secret: secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24, // Czas życia sesji w milisekundach (24 godziny)
+  },
+}));
 
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
@@ -50,14 +52,16 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.post('/register', async (req, res) => {
-  const { username, email, password, profileImage} = req.body;
+  const { name, lastname, username, email, password, profileImage} = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const userDoc = await User.create({
+      name,
+      lastname,
       username,
       email,
       password: hashedPassword,
-      profileImage
+      profileImage,
     });
     res.json(userDoc);
   } catch (error) {
@@ -67,63 +71,80 @@ app.post('/register', async (req, res) => {
 });
 
 
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  const userDoc = await User.findOne({ username });
 
-app.post('/login', async (req,res) => {
-  const {username,password} = req.body;
-  const userDoc = await User.findOne({username});
-  const passOk = bcrypt.compareSync(password, userDoc.password);
-  if (passOk) {
-    // logged in
-    jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
-      if (err) throw err;
-      res.cookie('token', token).json({
-        id:userDoc._id,
-        username,
-      });
-    });
-  } else {
-    res.status(400).json('wrong credentials');
+  if (!userDoc || !bcrypt.compareSync(password, userDoc.password)) {
+    return res.status(400).json({ message: 'Wrong credentials' });
   }
+
+  req.session.userId = userDoc._id; // Ustawienie ID użytkownika w sesji
+
+  res.json({
+    id: userDoc._id,
+    username: userDoc.username,
+  });
 });
-app.get('/profile', (req, res) =>{
-  const {token} = req.cookies;
-jwt.verify(token, secret, {}, (err,info) =>{
-  if(err) throw err;
-  res.json(info)
-})
 
-})
+app.get('/profile', async (req, res) => {
+  const userId = req.session.userId;
 
+  if (!userId) {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
 
-app.post('/logout', (req,res) => {
-  res.clearCookie('token').json('ok');
-})
+  const user = await User.findById(userId);
 
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
 
-app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
-  const {originalname,path} = req.file;
-  const parts = originalname.split('.');
-  const ext = parts[parts.length - 1];
-  const newPath = path+'.'+ext;
-  fs.renameSync(path, newPath);
+  res.json({
+    name: user.name,
+    lastname: user.lastname,
+    username: user.username,
+    email: user.email,
+    profileImage: user.profileImage,
+  });
+});
 
-  const {token} = req.cookies;
-  jwt.verify(token, secret, {}, async (err,info) => {
-    if (err) throw err;
-    const {title,summary,content} = req.body;
+app.post('/logout', (req, res) => {
+  req.session.destroy(); // Usunięcie sesji po wylogowaniu
+  res.json('ok');
+});
+
+app.post('/post', uploadMiddleware.single('file'), async (req, res) => {
+  try {
+    const { originalname, path } = req.file;
+    const parts = originalname.split('.');
+    const ext = parts[parts.length - 1];
+    const newPath = path + '.' + ext;
+    fs.renameSync(path, newPath);
+
+    // Sprawdź, czy użytkownik jest zalogowany na podstawie sesji
+    const userId = req.session.userId;
+
+    if (!userId) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    const { title, summary, content } = req.body;
 
     const postDoc = await Post.create({
       title,
       summary,
       content,
-      cover:newPath,
-      author:info.id,
+      cover: newPath,
+      author: userId,
     });
+
     res.json(postDoc);
-  });
-
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
 });
-
 
 
 app.get('/post', async (req, res) => {
@@ -200,6 +221,8 @@ app.get('/myprofile', async (req, res) => {
 
 
     res.json({
+      name: user.name,
+      lastname: user.name,
       username: user.username,
       email: user.email,
       profileImage: user.profileImage,

@@ -44,14 +44,14 @@ const PlanetsComponent = () => {
     <div>
       <h1 className={`${styles.h2} mt-10`}>Solar System</h1>
 
-      <div className='flex items-center justify-center'>
+      <div className='flex flex-col md:flex-row items-center justify-center mx-10'>
         {planets.map((planet, index) => (
           <div key={index} className='m-3 relative' onClick={() => handlePlanetClick(index)}>
             <img src={planetsImages[index].image} alt={planet.Planet}  />
             {/* <p className='text-white'>{planet.Planet}</p> */}
 
             {selectedPlanet === index && (
-            <div className='popup absolute bottom-[90%] left-[30%] text-white bg-secondary p-5 rounded-md'>
+            <div className={`popup absolute bottom-[90%] text-white bg-secondary p-5 rounded-md`}>
               <h5 className='w-[150px] text-green text-[28px] mb-2 '>{planet.Planet}</h5>
               <p>Distance from Sun: {planet.Distance}</p>
               <p>Size: {planet.Size}</p>

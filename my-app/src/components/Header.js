@@ -8,22 +8,32 @@ export default function Header() {
   useEffect(() => {
     fetch('http://localhost:4000/profile', {
       method: 'GET',
-      credentials: 'include'
-    }).then(response => {
-      response.json().then(userInfo => {
+      credentials: 'include', // Ustawienie credentials na 'include' przekazuje ciasteczka sesji
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`Error: ${response.status}`);
+        }
+      })
+      .then(userInfo => {
         setUsername(userInfo.username);
+      })
+      .catch(error => {
+        console.error('Profile fetch error:', error);
+        // Jeśli sesja wygasła lub użytkownik nie jest zalogowany, możesz przekierować na stronę logowania
+        navigate('/login');
       });
-    });
   }, []);
 
   function logout() {
     fetch('http://localhost:4000/logout', {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include',
     })
       .then(() => {
         setUsername(null);
-        // You may want to redirect to the login page or another appropriate page
         navigate('/login');
       })
       .catch(error => console.error('Logout error:', error));
@@ -42,8 +52,8 @@ export default function Header() {
         )}
         {!username && (
           <>
-            <Link to="./login">Login</Link>
-            <Link to="./register" className="mx-5">
+            <Link to="/login">Login</Link>
+            <Link to="/register" className="mx-5">
               Register
             </Link>
           </>
