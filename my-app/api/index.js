@@ -50,16 +50,27 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.post('/register', async (req, res) => {
-  const { username, email, password, profileImage} = req.body;
+  const { username, email, password, profileImage, name, lastname } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const userDoc = await User.create({
       username,
       email,
       password: hashedPassword,
-      profileImage
+      profileImage,
+      name,
+      lastname // Dodaj pole name do dokumentu użytkownika
     });
-    res.json(userDoc);
+
+    // Utwórz token JWT z dodanym polem name
+    jwt.sign({ username, id: userDoc._id, name }, secret, {}, (err, token) => {
+      if (err) throw err;
+      res.cookie('token', token, { httpOnly: true }).json({
+        id: userDoc._id,
+        username,
+        name,
+      });
+    });
   } catch (error) {
     console.error('Error while registering user:', error);
     res.status(400).json({ error: 'Registration failed' });
@@ -67,24 +78,28 @@ app.post('/register', async (req, res) => {
 });
 
 
-
-app.post('/login', async (req,res) => {
-  const {username,password} = req.body;
-  const userDoc = await User.findOne({username});
+app.post('/login', async (req, res) => {
+  const { name, username, password } = req.body;
+  const userDoc = await User.findOne({ username });
   const passOk = bcrypt.compareSync(password, userDoc.password);
+
   if (passOk) {
     // logged in
-    jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
+    jwt.sign({ username, id: userDoc._id, name }, secret, {}, (err, token) => {
       if (err) throw err;
-      res.cookie('token', token).json({
-        id:userDoc._id,
+      res.cookie('token', token, { httpOnly: true }).json({
+        id: userDoc._id,
         username,
+        name, // Include 'name' in the response
       });
     });
   } else {
     res.status(400).json('wrong credentials');
   }
 });
+
+
+
 app.get('/profile', (req, res) =>{
   const {token} = req.cookies;
 jwt.verify(token, secret, {}, (err,info) =>{

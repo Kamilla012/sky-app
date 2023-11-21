@@ -22,42 +22,14 @@ export default function Header() {
   }
 
 
-//   fetch('https://example.com/some/path/to/json')
-// .then(function (response) {
-//     return response.json();
-// })
-// .then(function (data) {
-//     // Do something with data
-// });
-    // const {setUserInfo,userInfo} = useContext(UserContext);
-    // useEffect(() => {
-    //   fetch('http://localhost:4000/profile', {
-    //     credentials: 'include',
-    //   }).then(response => {
-    //     return response.json();
-    //     // response.json().then(userInfo => {
-    //     //   setUserInfo(userInfo);
-    //     // });
-    //   });
-    // }, []);
-  
-    // function logout() {
-    //   fetch('http://localhost:4000/logout', {
-    //     credentials: 'include',
-    //     method: 'POST',
-    //   });
-    //   setUserInfo(null);
-    // }
-  
-    // const username = userInfo?.username;
     return(
         <header className="flex text-[grey] text-[20px] px-10 pt-5 justify-end">
         <nav>
           {username &&(
             <>
-               <Link to="/create" className="mr-10">Create new post</Link>
+               {/* <Link to="/create" className="mr-10">Create new post</Link> */}
               <a onClick={logout} >Logout ({username})</a>
-              <Link  className="mx-5" to="./blog">Blog</Link> 
+             
             </>
           )}
           {!username &&(
