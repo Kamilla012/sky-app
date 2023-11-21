@@ -142,7 +142,19 @@ app.post('/login', async(req, res)=>{
 //     res.status(400).json('wrong credentials');
 //   }
 // });
-
+app.post('/userProfile', async(req,res) =>{
+  const {token} = req.body;
+  try {
+    const user = jwt.verify(token, JWT_SECRET)
+    const useremail = user.email
+    User.findById({ email: useremail})
+    .then((data)=>{
+      res.send({status: "ok", data: data})
+    })
+  }catch (error){
+    res.send({status: "error", data: error})
+  }
+})
 
 
 app.get('/profile', (req, res) =>{
