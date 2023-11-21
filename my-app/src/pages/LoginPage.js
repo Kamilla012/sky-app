@@ -3,50 +3,48 @@ import styles from "../style";
 import { Navigate } from "react-router-dom";
 
 export default function LoginPage({ setUserInfo }) {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [redirect, setRedirect] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  async function login(ev) {
-    ev.preventDefault();
-    const response = await fetch('http://localhost:4000/login', {
-      method: 'POST',
-      body: JSON.stringify({ username, password }),
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-    });
+  function handleSubmit(e) {
+    e.preventDefault();
 
-    if (response.ok) {
-      const userInfo = await response.json();
+    console.log(email, password);
+    fetch("http://localhost:5000/login-user", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userRegister");
+        if (data.status === "ok") {
+          alert("login successful");
+          window.localStorage.setItem("token", data.data);
+          window.localStorage.setItem("loggedIn", true);
 
-      // Sprawdź, czy w userInfo istnieje pole 'name' i przekazuj je dalej
-      if ('name' in userInfo) {
-        setUserInfo(userInfo);
-      } else {
-        // Możesz obsłużyć sytuację, gdy pole 'name' nie istnieje w odpowiedzi
-        console.warn('Field "name" not found in the response.');
-      }
-
-      setRedirect(true);
-    } else {
-      alert('Wrong credentials');
-    }
-  }
-
-  if (redirect) {
-    return <Navigate to={'/'} />;
+          window.location.href = "./userDetails";
+        }
+      });
   }
 
   return (
     <div className={`${styles.divForm}`}>
-      <form className={`${styles.form}`} onSubmit={login}>
+      <form className={`${styles.form}`} onSubmit={handleSubmit}>
         <h2 className={`${styles.h2}`}>Login</h2>
         <input
           type="text"
           placeholder="username"
           className={`${styles.inputForm}`}
-          value={username}
-          onChange={(ev) => setUsername(ev.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <input
@@ -54,7 +52,7 @@ export default function LoginPage({ setUserInfo }) {
           placeholder="password"
           className={`${styles.inputForm}`}
           value={password}
-          onChange={(ev) => setPassword(ev.target.value)}
+          onChange={(e) => password(e.target.value)}
         />
         <button className={styles.buttonForm}>Login</button>
       </form>

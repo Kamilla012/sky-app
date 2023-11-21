@@ -3,6 +3,7 @@ import {useContext, useEffect, useState} from "react";
 import {UserContext} from "../UserContext";
 export default function Header() {
   const [username, setUsername] = useState(null)
+  const [name, setName] = useState(null)
   useEffect(() =>{
     fetch('http://localhost:4000/profile', {
     method: 'GET',
