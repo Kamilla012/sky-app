@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 const {Schema, model} = mongoose;
 
 const UserSchema = new Schema({
-  username: { type: String, required: true, minlength: 4},
-  email: { type: String, required: true },
-  password: { type: String, required: true },
-  profileImage: { type: String,  required: true}
+  username: { type: String, minlength: 4},
+  email: { type: String },
+  password: { type: String},
+  profileImage: { type: String}
 });
 
 

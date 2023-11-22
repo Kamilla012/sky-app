@@ -50,13 +50,15 @@ async function connectToDatabase() {
 connectToDatabase();
 
 app.post('/register', async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, profileImage } = req.body;
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
     const userDoc = await User.create({
       username,
       password: hashedPassword,
+      profileImage
     });
+    // console.log(userDoc)
     res.json(userDoc);
   } catch (error) {
     console.error('Error while registering user:', error);
@@ -71,18 +73,26 @@ app.post('/login', async (req,res) => {
   const userDoc = await User.findOne({username});
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
+
+    console.log('Generated Token:', token);
     // logged in
-    jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
+    jwt.sign({ username, id: userDoc._id, profileImage: userDoc.profileImage }, secret, {}, (err, token) => {
       if (err) throw err;
       res.cookie('token', token).json({
-        id:userDoc._id,
+        id: userDoc._id,
         username,
+        profileImage: userDoc.profileImage,
       });
+      
     });
+
+
   } else {
     res.status(400).json('wrong credentials');
   }
 });
+
+
 app.get('/profile', (req, res) =>{
   const {token} = req.cookies;
 jwt.verify(token, secret, {}, (err,info) =>{
