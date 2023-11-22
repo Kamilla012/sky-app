@@ -1,52 +1,45 @@
 import React, { useState } from "react";
 import styles from "../style";
-import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-export default function LoginPage({ setUserInfo }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+export default function LoginPage() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [redirect, setRedirect] = useState(false);
+  const [userInfo, setUserInfo] = useState(null);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  async function login(ev) {
+    ev.preventDefault();
+    const response = await fetch('http://localhost:4000/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+    });
 
-    console.log(email, password);
-    fetch("http://localhost:4000/login", {
-      method: "POST",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        if (data.status === "ok") {
-          alert("Login successful");
-          window.localStorage.setItem("token", data.data);
-          window.localStorage.setItem("loggedIn", true);
+    if (response.ok) {
+      const userInfo = await response.json();
+      setUserInfo(userInfo);
+      setRedirect(true);
+    } else {
+      alert('wrong credentials');
+    }
+  }
 
-          // Use React Router's Navigate component to navigate to the Home page
-          navigate("/");
-        }
-      });
+  if (redirect) {
+    return <Navigate to={'/'} />;
   }
 
   return (
     <div className={`${styles.divForm}`}>
-      <form className={`${styles.form}`} onSubmit={handleSubmit}>
+      <form className={`${styles.form}`} onSubmit={login}>
         <h2 className={`${styles.h2}`}>Login</h2>
         <input
           type="text"
-          placeholder="email"
+          placeholder="username"
           className={`${styles.inputForm}`}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(ev) => setUsername(ev.target.value)}
         />
 
         <input
@@ -54,7 +47,7 @@ export default function LoginPage({ setUserInfo }) {
           placeholder="password"
           className={`${styles.inputForm}`}
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(ev) => setPassword(ev.target.value)}
         />
         <button className={styles.buttonForm}>Login</button>
       </form>

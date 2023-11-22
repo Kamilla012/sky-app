@@ -1,48 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import styles from "../style";
-import { useNavigate } from "react-router-dom";
 
-export default function Profile(){
-        const [email, setEmail] = useState("");
-        const [password, setPassword] = useState("");
-        const navigate = useNavigate();
-      
-        function handleSubmit(e) {
-          e.preventDefault();
-      
-          console.log(email, password);
-          fetch("http://localhost:4000/userProfile", {
-            method: "POST",
-            crossDomain: true,
-            headers: {
-              "Content-Type": "application/json",
-              Accept: "application/json",
-              "Access-Control-Allow-Origin": "*",
-            },
-            body: JSON.stringify({
-              email,
-              password,
-            }),
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              console.log(data, "userRegister");
-              if (data.status === "ok") {
-                alert("Login successful");
-                window.localStorage.setItem("token", data.data);
-                window.localStorage.setItem("loggedIn", true);
-      
-                // Use React Router's Navigate component to navigate to the Home page
-                navigate("/");
-            }
-        });
-    }
-  
+export default function Profile({ setUserInfo }) {
+  useEffect(() => {
+    fetch("http://localhost:4000/userdata", {
+      method: "POST",
+      crossDomain: true,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        token: window.localStorage.getItem("token"),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data, "userRegister");
+        // Use setUserInfo or any other logic based on the API response
+      });
+  }, []); // Empty dependency array means this useEffect runs once after mount
+
   return (
     <div>
-        
+      {/* Add other fields you want to display */}
     </div>
   );
-};
-
+}

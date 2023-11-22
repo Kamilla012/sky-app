@@ -8,10 +8,8 @@ const saltRounds = 10; // Zalecam wykorzystanie bardziej losowo generowanej soli
 const username = 'admin';
 // const password = 'i5ri1fNyrrImBiDp';
 const jwt = require('jsonwebtoken')
-const JWT_SECRET = "gdhfieha33422rfds44fghyuwefy78889efhei892ojdrj"
-
 // const encodedPassword = encodeURIComponent(password);
-// const secret = 'gdgfcds76f7asg'
+const secret = 'gdgfcds76f7asg'
 const connectionString = `mongodb+srv://admin:admin@cluster0.ejp2zb5.mongodb.net/`
 const User = require('./models/User');
 const cookieParser = require('cookie-parser');
@@ -51,115 +49,43 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-// app.post('/register', async (req, res) => {
-//   const { username, email, password, profileImage, name, lastname } = req.body;
-//   try {
-//     const hashedPassword = await bcrypt.hash(password, saltRounds);
-//     const userDoc = await User.create({
-//       name,
-//       lastname,
-//       username,
-//       email,
-//       password: hashedPassword,
-//       profileImage,
-//        // Dodaj pole name do dokumentu użytkownika
-//     });
-
-//     // Utwórz token JWT z dodanym polem name
-//     jwt.sign({ username, id: userDoc._id, name }, secret, {}, (err, token) => {
-//       if (err) throw err;
-//       res.cookie('token', token, { httpOnly: true }).json({
-//         id: userDoc._id,
-//         username,
-//         name,
-//       });
-//     });
-//   } catch (error) {
-//     console.error('Error while registering user:', error);
-//     res.status(400).json({ error: 'Registration failed' });
-//   }
-// });
-
-
-app.post("/register", async(req,res) =>{
-  const {fname, lname, username, email, password, profileImage} = req.body
-  const encryptedPassword = await bcrypt.hash(password, 10)
-
-  try{
-    const oldUser = await User.findOne({email})
-    if(oldUser){
-      return res.send({error:"User Exsist"})
-    }
-    await User.create({
-      fname,
-      lname,
-      username,
-      email,
-      password:encryptedPassword,
-      profileImage,
-    })
-    res.send({status: "ok"})
-  }catch (error){
-    res.send({status: "error"})
-  }
-})
-
-app.post('/login', async(req, res)=>{
-  const {email, password} = req.body;
-  const user = await User.findOne({email}) 
-
-  if(!user){
-    return res.send({error:"User Not Found"})
-  }
-  if(await bcrypt.compare(password, user.password)){
-    const token = jwt.sign({}, JWT_SECRET)
-    
-    if(res.status(201)){
-      return res.json({status:"ok", data: token})
-    }else{
-      return res.json({error: "error"})
-    }
-  }
-  res.json({status: "error", error: "Invalid Password"})
-})
-
-// app.post('/login', async (req, res) => {
-//   const { name, username, password } = req.body;
-//   const userDoc = await User.findOne({ username });
-//   const passOk = bcrypt.compareSync(password, userDoc.password);
-
-//   if (passOk) {
-//     // logged in
-//     jwt.sign({ username, id: userDoc._id, name }, secret, {}, (err, token) => {
-//       if (err) throw err;
-//       res.cookie('token', token, { httpOnly: true }).json({
-//         id: userDoc._id,
-//         username,
-//         name,
-//       });
-//     });
-//   } else {
-//     res.status(400).json('wrong credentials');
-//   }
-// });
-app.post('/userProfile', async(req,res) =>{
-  const {token} = req.body;
+app.post('/register', async (req, res) => {
+  const { username, password } = req.body;
   try {
-    const user = jwt.verify(token, JWT_SECRET)
-    const useremail = user.email
-    User.findById({ email: useremail})
-    .then((data)=>{
-      res.send({status: "ok", data: data})
-    })
-  }catch (error){
-    res.send({status: "error", data: error})
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const userDoc = await User.create({
+      username,
+      password: hashedPassword,
+    });
+    res.json(userDoc);
+  } catch (error) {
+    console.error('Error while registering user:', error);
+    res.status(400).json({ error: 'Registration failed' });
   }
-})
+});
 
 
+
+app.post('/login', async (req,res) => {
+  const {username,password} = req.body;
+  const userDoc = await User.findOne({username});
+  const passOk = bcrypt.compareSync(password, userDoc.password);
+  if (passOk) {
+    // logged in
+    jwt.sign({username,id:userDoc._id}, secret, {}, (err,token) => {
+      if (err) throw err;
+      res.cookie('token', token).json({
+        id:userDoc._id,
+        username,
+      });
+    });
+  } else {
+    res.status(400).json('wrong credentials');
+  }
+});
 app.get('/profile', (req, res) =>{
   const {token} = req.cookies;
-jwt.verify(token, JWT_SECRET, {}, (err,info) =>{
+jwt.verify(token, secret, {}, (err,info) =>{
   if(err) throw err;
   res.json(info)
 })
@@ -171,6 +97,36 @@ app.post('/logout', (req,res) => {
   res.clearCookie('token').json('ok');
 })
 
+// app.post('/logout', (req,res) => {
+//   // res.cookie('token', '').json('ok');
+// });
+
+// app.post('/post', uploadMiddleware.single('file'), async (req, res) =>{
+//   //change name of file
+//   const {originalname, path} = req.file
+//   const parts = originalname.split('.')
+//   const ext = parts[parts.length - 1]
+//   const newPath = path+'.'+ext
+//   fs.renameSync(path, newPath)
+//   // res.json({ext})
+
+//   const {token} = req.cookies;
+
+//   jwt.verify(token, secret, {}, async (err,info) =>{
+//     if(err) throw err;
+//     res.json(info)
+//     const {title, summary, content} = req.body
+//     //saving dates
+//     const postDoc = await Post.create({
+//       title, 
+//       summary,
+//       content,
+//       cover: newPath,
+//       author:info.id
+//     })
+    
+//   res.json(postDoc)
+//   }) 
 
 app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
   const {originalname,path} = req.file;
@@ -180,7 +136,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
   fs.renameSync(path, newPath);
 
   const {token} = req.cookies;
-  jwt.verify(token, JWT_SECRET, {}, async (err,info) => {
+  jwt.verify(token, secret, {}, async (err,info) => {
     if (err) throw err;
     const {title,summary,content} = req.body;
 
@@ -262,30 +218,7 @@ app.get('/planets', async (req, res) => {
 
 
 
-app.get('/myprofile', async (req, res) => {
-  try {
 
-    const user = await User.findOne({});
-
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-
-    res.json({
-      name: user.name,
-      lastname: user.lastname,
-      username: user.username,
-      email: user.email,
-      profileImage: user.profileImage,
-
-    });
-  } catch (error) {
-    console.error('Error fetching user data:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
-  }
-});
 
 
 app.listen(4000);
-
