@@ -1,30 +1,33 @@
-import React, { useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
-export default function Profile({ setUserInfo }) {
+const Profile = () => {
+  const [username, setUsername] = useState(null)
+  const [profileImage, setProfileImage] = useState(null)
   useEffect(() => {
-    fetch("http://localhost:4000/userdata", {
-      method: "POST",
-      crossDomain: true,
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify({
-        token: window.localStorage.getItem("token"),
-      }),
+    fetch('http://localhost:4000/profile', {
+      method: 'GET',
+      credentials: 'include'
+    }).then(response => {
+      console.log(response);  // Log the response here
+      response.json().then(userInfo => {
+        setUsername(userInfo.username)
+        setProfileImage(userInfo.profileImage)
+      })
     })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, "userRegister");
-        // Use setUserInfo or any other logic based on the API response
-      });
-  }, []); // Empty dependency array means this useEffect runs once after mount
+  }, []);
 
   return (
-    <div>
-      {/* Add other fields you want to display */}
-    </div>
+  
+    
+        <div>
+          <h2>Profile</h2>
+          <p>First Name: {username}</p>
+          <img  src={profileImage} className="w-[200px]" alt='profilePhoto'/>
+         
+     
+        </div>
+  
   );
-}
+};
+
+export default Profile;

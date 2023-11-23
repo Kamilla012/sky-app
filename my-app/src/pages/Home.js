@@ -6,6 +6,7 @@ import IndexPage from './IndexPage'
 import PlanetCanvas from '../components/TwoSpheres'
 import SolarSystem from './SolarSystem'
 
+
 const Home = () => {
   return (
     <div className='bg-primary'>
@@ -15,6 +16,7 @@ const Home = () => {
     
     </div>
     <Technologies />
+  
     {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
     <StarsInfo/>
     {/* <IndexPage showAllPosts={false} />

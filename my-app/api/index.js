@@ -74,7 +74,7 @@ app.post('/login', async (req,res) => {
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
 
-    console.log('Generated Token:', token);
+
     // logged in
     jwt.sign({ username, id: userDoc._id, profileImage: userDoc.profileImage }, secret, {}, (err, token) => {
       if (err) throw err;

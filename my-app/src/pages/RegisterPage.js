@@ -1,8 +1,11 @@
 import styles from "../style";
 import { useState } from "react";
+import RegistrationBackground from '../images/backgrounds/r1.jpg'
 
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const [profileImage, setProfileImage] = useState(null);
@@ -37,10 +40,36 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className={`${styles.divForm} bg-primary `}>
-      <form onSubmit={register} className={`${styles.form}`}>
+    <div className={`flex justify-center items-center`}>
+    <div className={`${styles.divForm} bg-primary w-[60%]` }>
+    <div className="w-[40%]">
+
+         <img src={RegistrationBackground} className="w-full " alt="Registration Background" />
+    </div>
+
+      <form onSubmit={register} className={`${styles.form} w-[60%]`}>
         <h2 className={`${styles.h2}`}>Register</h2>
 
+        <p className={`${styles.p}`}>First name</p>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          value={fname}
+          onChange={(ev) => setFname(ev.target.value)}
+          className={`${styles.inputForm}`}
+        />
+
+        
+        <p className={`${styles.p}`}> Last name</p>
+        <input
+          type="text"
+          placeholder="Enter your name last"
+          value={lname}
+          onChange={(ev) => setLname(ev.target.value)}
+          className={`${styles.inputForm}`}
+        />
+
+        <p className={`${styles.p}`}>Username</p>
         <input
           type="text"
           placeholder="username"
@@ -48,6 +77,8 @@ export default function RegisterPage() {
           onChange={(ev) => setUsername(ev.target.value)}
           className={`${styles.inputForm}`}
         />
+
+        <p className={`${styles.p}`}>Email</p>
         <input
           type="email"
           placeholder="email"
@@ -56,6 +87,7 @@ export default function RegisterPage() {
           className={`${styles.inputForm}`}
         />
 
+        <p className={`${styles.p}`}>Password</p>
         <input
           type="password"
           placeholder="password"
@@ -64,7 +96,7 @@ export default function RegisterPage() {
           className={`${styles.inputForm}`}
         />
 
-        <div className="flex flex-wrap justify-center bg-primar">
+        {/* <div className="flex flex-wrap justify-center bg-primar">
           {ProfileImages.map((profile) => (
             <img
               key={profile.name}
@@ -76,10 +108,11 @@ export default function RegisterPage() {
               } w-[150px] m-2 rounded-full`}
             />
           ))}
-        </div>
+        </div> */}
 
         <button className={styles.buttonForm}>Register</button>
       </form>
+    </div>
     </div>
   );
 }
