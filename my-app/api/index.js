@@ -49,18 +49,20 @@ async function connectToDatabase() {
 
 connectToDatabase();
 app.post('/register', async (req, res) => {
-  const { username, fname, lname, password, email} = req.body;
+  const { fname, lname, username, email,  password } = req.body;
 
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const userDoc = await User.create({
-      username,
+      
       fname,
       lname,
-      password: hashedPassword,
+      username,
       email,
-      // profileImage,
+      password: hashedPassword,
+     
+   
     });
 
    
@@ -75,17 +77,20 @@ app.post('/register', async (req, res) => {
 
 
 app.post('/login', async (req,res) => {
-  const {username,password} = req.body;
+  const {fname, lname, email, username,password} = req.body;
   const userDoc = await User.findOne({username});
   const passOk = bcrypt.compareSync(password, userDoc.password);
   if (passOk) {
 
 
     // logged in
-    jwt.sign({ username, id: userDoc._id, profileImage: userDoc.profileImage }, secret, {}, (err, token) => {
+    jwt.sign({id: userDoc._id, fname:userDoc.fname, lname:userDoc.lname, email:userDoc.email, username,  profileImage:userDoc.profileImage}, secret, {}, (err, token) => {
       if (err) throw err;
       res.cookie('token', token).json({
         id: userDoc._id,
+        fname,
+        lname,
+        email,
         username,
         profileImage: userDoc.profileImage,
       });

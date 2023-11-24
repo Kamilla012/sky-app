@@ -4,11 +4,11 @@ import RegistrationBackground from '../images/backgrounds/r1.jpg';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
-    username: '',
     fname: '',
     lname: '',
-    password: '',
+    username: '',
     email: '',
+    password: '',
     profileImage: null,
   });
 
