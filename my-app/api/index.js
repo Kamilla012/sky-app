@@ -48,17 +48,23 @@ async function connectToDatabase() {
 }
 
 connectToDatabase();
-
 app.post('/register', async (req, res) => {
-  const { username, password, profileImage } = req.body;
+  const { username, fname, lname, password, email} = req.body;
+
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const userDoc = await User.create({
       username,
+      fname,
+      lname,
       password: hashedPassword,
-      profileImage
+      email,
+      // profileImage,
     });
-    // console.log(userDoc)
+
+   
+
     res.json(userDoc);
   } catch (error) {
     console.error('Error while registering user:', error);
