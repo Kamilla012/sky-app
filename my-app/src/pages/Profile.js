@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import DefaultProfile from '../images/profilePhotos/Default0.jpg'
 const Profile = () => {
   
   const [fname, setFname] = useState("")
@@ -24,19 +24,22 @@ const Profile = () => {
   }, []);
 
   return (
-  
     
-        <div className='text-white'>
-          <h2>Profile</h2>
-          <p>First Name: {username}</p>
-          <p>{fname}</p>
-          <p>{lname}</p>
-          <p>{email}</p>
-          <img  src={profileImage} className="w-[200px]" alt='profilePhoto'/>
+    <div className='flex justify-center mt-10'>
+        <div className='flex justify-center items-center flex-col w-[50%] h-[50%] bg-secondary rounded-lg  shadow-sm shadow-white text-white p-10'>
+
+          <div>
+            <img src={DefaultProfile} alt="progile" className='w-[150px] rounded-full'></img>
+          </div>
+          <h2 className='text-[30px]'>{fname} {lname}</h2>
+         <p>{email}</p>
+
+         
+         
          
      
         </div>
-  
+    </div>
   );
 };
 

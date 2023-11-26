@@ -8,7 +8,7 @@ const Technologies = () => {
   const iconNames = [faReact, faNode, faDatabase, faGithub];
 
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center '>
 
 
     <div className='grid grid-cols-2 md:grid-cols-4 pb-10'>
