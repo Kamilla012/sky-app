@@ -113,9 +113,7 @@ const RegisterPage = () => {
               onChange={(ev) => handleInputChange('password', ev.target.value)}
               className={`${styles.inputForm}`}
             />
-  
-{/*           
-          <div className="flex flex-wrap justify-center bg-primar">
+      {/* <div className="flex flex-wrap justify-center bg-primar">
             {ProfileImages.map((profile) => (
               <img
                 key={profile.name}
@@ -127,7 +125,7 @@ const RegisterPage = () => {
                 } w-[150px] m-2 rounded-full`}
               />
             ))}
-          </div> */}
+          </div>  */}
 
           <button className={styles.buttonForm}>Register</button>
         </form>

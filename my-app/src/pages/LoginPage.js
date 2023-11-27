@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../style";
 import { Navigate } from "react-router-dom";
+import loginBackground from '../images/backgrounds/login.jpg'
 
 export default function LoginPage() {
   const [username, setUsername] = useState('');
@@ -31,8 +32,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className={`${styles.divForm}`}>
-      <form className={`${styles.form}`} onSubmit={login}>
+    <div className="flex justify-center items-center">
+      
+    <div className={`${styles.divForm} justi bg-primary lg:w-[1000px] w-full` }>
+
+    <div className="lg:{w-[40%] lg:block hidden w-[40%]">
+        <img src={loginBackground} alt="login_background"></img>
+      </div>
+
+      <form className={`${styles.form} lg:w-[60%] w-full` } onSubmit={login}>
         <h2 className={`${styles.h2}`}>Login</h2>
         <input
           type="text"
@@ -51,6 +59,7 @@ export default function LoginPage() {
         />
         <button className={styles.buttonForm}>Login</button>
       </form>
+    </div>
     </div>
   );
 }

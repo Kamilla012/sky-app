@@ -43,7 +43,7 @@ export default function Post({_id, title, summary, cover, content, createdAt, au
 
         <p className="mb-5 mt-2 text-[green] ">
           <a href="" className="mr-5">
-            {author.username}
+            {/* {author.username} */}
           </a>
           <time className="text-[grey]">
             {format(new Date(createdAt), "d MMM yyyy HH:mm")}
