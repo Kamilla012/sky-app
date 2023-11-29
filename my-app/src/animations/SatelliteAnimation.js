@@ -20,7 +20,7 @@ const RocketAnimation = () => {
     };
   }, []);
 
-  return <div className="container md:absolute md:left-0 md:top-[20%] w-[30%]" ref={container}></div>; // Przypisz ref do kontenera
+  return <div className="container w-[400px]" ref={container}></div>; // Przypisz ref do kontenera
 };
 
 export default RocketAnimation;

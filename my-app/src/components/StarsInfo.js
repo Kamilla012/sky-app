@@ -11,18 +11,18 @@ const constellations = [
   { name: 'Libra', image: require('../images/libra.png') },
   { name: 'Sagittarius', image: require('../images/sagittarius.png') },
   { name: 'Scorpio', image: require('../images/scorpio.png') },
-  { name: 'Taurus', image: require('../images/taurus.png') },
+ 
 ];
 
 export const StarsInfo = () => {
   return (
     <div className='bg-secondary py-5'>
       <h2 className={`${styles.h2}`}>Constellations</h2>
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 w-[75%] max-w-4xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-[75%] max-w-4xl mx-auto">
         {constellations.map((constellation, index) => (
-          <div key={index} className='m-3 relative'>
-            <img src={constellation.image} alt={constellation.name} />
-            <Link to={"/starsCharts"} className='absolute sm:left-[30%] xl:left-[18%] bottom-[-2%] bg-green px-10 py-1 text-white rounded-full'>
+          <div key={index} className='m-3 relative shadow-lg shadow-green '>
+            <img src={constellation.image} alt={constellation.name} className='rounded-xl'/>
+            <Link to={"/starsCharts"} className='absolute left-[35%] w-[80px] sm:left-[30%] xl:left-[30%] bottom-[-5%] bg-green p-1 text-center text-white rounded-full'>
               {constellation.name}
             </Link>
           </div>
