@@ -13,7 +13,7 @@ const Tiles = () => {
 
   return (
     <div className='text-white flex flex-col mx-10'>
-      <div className='flex'>
+      <div className='flex items-center my-10'>
         <h3 className={`${styles.h3}`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
         <p>
           Ut pretium mi eu finibus egestas. Suspendisse elementum est sem, a
@@ -23,14 +23,19 @@ const Tiles = () => {
       </div>
     <div className='flex'>
       {TileImg.map((tile, index) => (
-        <div className="tile" key={index}>
-          <img src={tile.path} alt={tile.name} />
-          <p>
+        <div className="tile flex flex-col justify-center items-center"  key={index}
+        >
+          <img className=' w-[30%] h-[100px]' src={tile.path} alt={tile.name} />
+
+          <div className='flex my-10'>
+          <span className='text-[50px] px-5'>{index + 1}</span>
+          <p className=''>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
             enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
             magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
-          <span>{index + 1}</span>
+         
+        </div>
         </div>
       ))}
       </div>
