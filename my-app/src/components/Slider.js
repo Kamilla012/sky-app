@@ -17,15 +17,17 @@ import UranusImage from '../images/slider/Uranus.png';
 function Slider() {
   return (
     <div className='flex justify-center'>
-      <div className="container w-[70%]">
-        <h1 className="heading">Flower Gallery</h1>
+      <div className="container relative flex justify-between">
+       
         <Swiper
-          effect={'coverflow'}
+          // effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
           loop={true}
-          slidesPerView={3}
-          spaceBetween={30} // Set the space between slides
+         
+          slidesPerView={5}
+          // style={{ margin: '100px' }}
+          spaceBetween={20} // Set the space between slides
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
@@ -41,9 +43,14 @@ function Slider() {
           modules={[EffectCoverflow, Pagination, Navigation]}
           className="swiper_container"
         >
-          {/* Adjust image size and add margin */}
-          <SwiperSlide>
-            <img src={MercuryImage} alt="slide_image" className="w-[250px] " />
+          
+          <SwiperSlide className='p-10 relative'>
+             <img src={MercuryImage} alt="slide_image" className="absolute z-10 left-[100px] bottom-[300px]" />
+              <div className='w-[200px] h-[300px] border-2 border-white rounded-lg shadow-lg shadow-white m-10 relative'>
+              
+               <p>Hello</p>
+            </div>
+            
           </SwiperSlide>
           <SwiperSlide>
             <img src={VenusImage} alt="slide_image" className="w-[250px] " />
@@ -64,9 +71,11 @@ function Slider() {
             <img src={UranusImage} alt="slide_image" className="w-[250px] " />
           </SwiperSlide>
 
-          <div className="slider-controler">
-            <div className="swiper-button-prev slider-arrow"></div>
-            <div className="swiper-button-next slider-arrow"></div>
+          <div className="">
+            <div className="swiper-button-prev">
+
+            </div>
+            <div className="swiper-button-next"></div>
             <div className="swiper-pagination"></div>
           </div> 
         </Swiper>
@@ -76,3 +85,8 @@ function Slider() {
 }
 
 export default Slider;
+
+
+
+
+
