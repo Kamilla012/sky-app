@@ -7,12 +7,14 @@ import PlanetCanvas from '../components/TwoSpheres'
 import SolarSystem from './SolarSystem'
 import Tiles from '../components/Tiles'
 import Slider from '../components/Slider'
+import Loading from '../components/Loading'
 
 
 const Home = () => {
   return (
     <div className='bg-primary'>
     <div>
+      <Loading />
       <Slider />
     <SateliteInfo />
 
