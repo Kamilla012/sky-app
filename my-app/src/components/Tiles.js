@@ -13,19 +13,19 @@ const Tiles = () => {
 
   return (
     <div className='text-white flex flex-col mx-10'>
-      <div className='flex items-center my-10'>
-        <h3 className={`${styles.h3}`}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-        <p>
+      <div className='flex items-center md:flex-row flex-col my-10'>
+        <h3 className={`${styles.h3} w-3/4 `}>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
+        <p className='w-3/4 m-5'>
           Ut pretium mi eu finibus egestas. Suspendisse elementum est sem, a
           rhoncus ligula convallis eu. Duis finibus purus eget nisl tincidunt
           accumsan. Quisque nunc diam, imperdiet ac egestas non
         </p>
       </div>
-    <div className='flex'>
+    <div className='flex flex-col md:flex-row'>
       {TileImg.map((tile, index) => (
         <div className="tile flex flex-col justify-center items-center"  key={index}
         >
-          <img className=' w-[30%] h-[100px]' src={tile.path} alt={tile.name} />
+          <img className=' w-[150px]' src={tile.path} alt={tile.name} />
 
           <div className='flex my-10'>
           <span className='text-[50px] px-5'>{index + 1}</span>

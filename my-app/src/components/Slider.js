@@ -13,21 +13,28 @@ import MarsImage from '../images/slider/Mars.png';
 import JupiterImage from '../images/slider/Jupiter.png';
 import SaturnImage from '../images/slider/Saturn.png';
 import UranusImage from '../images/slider/Uranus.png';
+import NeptuneImage from '../images/slider/Neptune.png';
+import styles from '../style';
 
 function Slider() {
   return (
-    <div className='flex justify-center'>
-      <div className="container relative flex justify-between">
+    <div className='flex items-center justify-center'>
+      <div className="w-[80%] container">
        
         <Swiper
           // effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
           loop={true}
-         
-          slidesPerView={5}
-          // style={{ margin: '100px' }}
-          spaceBetween={20} // Set the space between slides
+        
+          slidesPerView={1}
+          spaceBetween={0}  
+          breakpoints={{
+            // Kiedy szerokość ekranu jest mniejsza niż 768px (dla małych ekranów)
+            768: {
+              slidesPerView: 3, // Zmniejszamy do jednego slajdu na małych ekranach
+            },
+          }}   
           coverflowEffect={{
             rotate: 0,
             stretch: 0,
@@ -41,43 +48,119 @@ function Slider() {
             clickable: true,
           }}
           modules={[EffectCoverflow, Pagination, Navigation]}
-          className="swiper_container"
+          className="swiper_container flex justify-center"
         >
           
-          <SwiperSlide className='p-10 relative'>
-             <img src={MercuryImage} alt="slide_image" className="absolute z-10 left-[100px] bottom-[300px]" />
-              <div className='w-[200px] h-[300px] border-2 border-white rounded-lg shadow-lg shadow-white m-10 relative'>
-              
-               <p>Hello</p>
+          <SwiperSlide>
+
+              <div className={`${styles.SliderDiv}`}>
+              <img src={MercuryImage} alt="slide_image" className='w-[150px]' />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
             </div>
             
           </SwiperSlide>
-          <SwiperSlide>
-            <img src={VenusImage} alt="slide_image" className="w-[250px] " />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={EarthImage} alt="slide_image" className="w-[250px] " />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={MarsImage} alt="slide_image" className="w-[250px] " />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={JupiterImage} alt="slide_image" className="w-[250px]" />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={SaturnImage} alt="slide_image" className="w-[250px] " />
-          </SwiperSlide>
-          <SwiperSlide>
-            <img src={UranusImage} alt="slide_image" className="w-[250px] " />
-          </SwiperSlide>
+            <SwiperSlide>
 
-          <div className="">
-            <div className="swiper-button-prev">
+              <div className={`${styles.SliderDiv}`}>
+              <img src={VenusImage} alt="slide_image" />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
             </div>
-            <div className="swiper-button-next"></div>
+            
+          </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className={`${styles.SliderDiv}`}>
+              <img src={EarthImage} alt="slide_image" />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+            </div>
+            
+          </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className={`${styles.SliderDiv}`}>
+              <img src={MarsImage} alt="slide_image" />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+            </div>
+            
+          </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className={`${styles.SliderDiv}`}>
+              <img src={SaturnImage} alt="slide_image" />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+            </div>
+            
+          </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className={`${styles.SliderDiv}`}>
+              <img src={JupiterImage} alt="slide_image" />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+            </div>
+            
+          </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className={`${styles.SliderDiv}`}>
+              <img src={UranusImage} alt="slide_image" />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+            </div>
+            
+          </SwiperSlide>
+
+            <SwiperSlide>
+
+              <div className={`${styles.SliderDiv}`}>
+              <img src={NeptuneImage} alt="slide_image" />
+              <h4 className={`${styles.h4}`}>Hello</h4>
+              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ante
+            enim, dapibus sed dui eu, tempus rutrum lectus. Nunc sed finibus
+            magna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+            </div>
+            
+          </SwiperSlide>
+
+      
+             {/* <div className="swiper-button-prev">
+
+            </div>
+            <div className="swiper-button-next"></div> */}
             <div className="swiper-pagination"></div>
-          </div> 
+    
         </Swiper>
       </div>
     </div>

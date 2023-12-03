@@ -6,14 +6,19 @@ const styles = {
     buttonForm: "bg-gradient-to-r from-green-500 to-teal-500 text-white hover:from-teal-500 hover:to-green-500 py-2 px-4 rounded-md my-7",
     h1: "text-4xl my-5 font-bold text-green text-center",
     p: "text-white text-[15px]",
-    h3: "text-[30px]",
+    h3: "text-[35px]",
+    h4: "text-[35px]",
 
     tableTr: "rounded-lg border-2 border-green text-white",
     tableTd: "py-1 px-1 text-center text-[12px]",
 
     navBorder: 'border-1 border-grey',
 
-    option: "text-darkGreen"
+    option: "text-darkGreen",
+
+
+    SliderDiv: 'w-[300px] h-[500px] px-10 py-5 text-center border-2 text-white border-white rounded-lg shadow-lg shadow-white m-10 flex flex-col  items-center',
+
 
 
 
