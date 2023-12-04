@@ -1,9 +1,6 @@
 import React from 'react'
 import SateliteInfo from '../components/SateliteInfo'
 import { StarsInfo } from '../components/StarsInfo'
-import Technologies from '../components/Technologies'
-import IndexPage from './IndexPage'
-import PlanetCanvas from '../components/TwoSpheres'
 import SolarSystem from './SolarSystem'
 import Tiles from '../components/Tiles'
 import Slider from '../components/Slider'
@@ -15,7 +12,7 @@ const Home = () => {
     <div className='bg-primary'>
     <div>
       <Loading />
-      <Slider />
+      
     <SateliteInfo />
 
     
@@ -27,8 +24,10 @@ const Home = () => {
     <StarsInfo/>
     {/* <IndexPage showAllPosts={false} />
     </div> */}
+
   
       <SolarSystem />
+      <Slider />
     </div>
 
   )
