@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import satelliteImage from '../images/elements/Base.png'
+
+import satelliteImage from '../images/satelliteIcon.svg'
 
 const URL = 'https://tle.ivanstanojevic.me/api/tle/44859/propagate?date=2023-12-04T20:11:32%2B00:00';
 
@@ -34,10 +35,11 @@ const SatelliteMap = () => {
         const position = [geodetic.latitude, geodetic.longitude];
         const satelliteIcon = new L.Icon({
             iconUrl: satelliteImage,
-            iconSize: [32, 32], // Dostosuj rozmiar ikony według potrzeb
+            iconSize: [52, 52],
             iconAnchor: [16, 16],
             popupAnchor: [0, -8],
         });
+        
 
         return (
             <MapContainer
@@ -49,11 +51,11 @@ const SatelliteMap = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
-                <Marker position={position}  icon={satelliteIcon}>
+                <Marker position={position} icon={satelliteIcon}>
                 <Popup>
                         <div>
                             <img src={satelliteImage} alt="Satellite" style={{ maxWidth: '100%', maxHeight: '150px' }} />
-                            <p>Satellite Location</p>
+                            <p>{position}</p>
                         </div>
                     </Popup>
                 </Marker>
