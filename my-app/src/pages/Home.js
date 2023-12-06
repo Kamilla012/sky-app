@@ -4,14 +4,14 @@ import { StarsInfo } from '../components/StarsInfo'
 import SolarSystem from './SolarSystem'
 import Tiles from '../components/Tiles'
 import Slider from '../components/Slider'
-import Loading from '../components/Loading'
+import SatelliteMap from '../components/SatelliteMap'
 
 
 const Home = () => {
   return (
     <div className='bg-primary'>
     <div>
-      <Loading />
+      <SatelliteMap />
       
     <SateliteInfo />
 
