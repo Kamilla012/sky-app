@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <div className='bg-primary'>
     <div>
-      <SatelliteMap />
+      {/* <SatelliteMap /> */}
       
     <SateliteInfo />
 

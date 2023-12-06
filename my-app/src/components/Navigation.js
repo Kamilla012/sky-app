@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faMoon, faHeart, faCircleDown } from '@fortawesome/free-regular-svg-icons';
-import { faSatellite, faHouse, faPenToSquare, faBook} from '@fortawesome/free-solid-svg-icons';
+import { faSatellite, faHouse, faPenToSquare, faBook, faMapLocationDot} from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 
 
@@ -123,7 +123,7 @@ const Navigation = () => {
   return (
     <Navbar>
       <NavItem icon={faHouse} path="/"/> 
-      <NavItem icon={faStar} path="/starsCharts" /> 
+      <NavItem icon={faMapLocationDot} path="/satellitesMapPage" /> 
       <NavItem icon={faSatellite} path="/satellites"/>
 
       

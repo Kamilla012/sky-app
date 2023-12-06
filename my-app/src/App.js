@@ -10,6 +10,8 @@ import SatellitesSearch from './components/SatellitesSearch';
 import StarsChart from './components/StarsChart';
 import IndexPage from './pages/IndexPage';
 import Profile from './pages/Profile';
+import SatelliteMap from './components/SatelliteMap';
+import { SatelliteMapPage } from './pages/SatelliteMapPage';
 
 function App() {
   const [userInfo, setUserInfo] = useState(null);
@@ -24,7 +26,7 @@ function App() {
         <Route path="/create" element={<CreatePost />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/satellites" element={<SatellitesSearch />} />
-        <Route path="/starsCharts" element={<StarsChart />} />
+        <Route path="/satellitesMapPage" element={<SatelliteMapPage />} />
         <Route path="/profile" element={<Profile />} />
       </Route>
     </Routes>
