@@ -9,7 +9,7 @@ import Navigation from "./Navigation";
 
 export default function Layout({ children, userInfo, setUserInfo }){
     return(
-        <main className="bg-primary h-[150vh]">
+        <main className="bg-primary min-h-[100vh]">
              <div>
              <Header userInfo={userInfo} setUserInfo={setUserInfo} />
                 {children}

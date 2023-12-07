@@ -13,6 +13,9 @@ import Profile from './pages/Profile';
 import SatelliteMap from './components/SatelliteMap';
 import { SatelliteMapPage } from './pages/SatelliteMapPage';
 
+import ConstellationDetail from './components/ConstellationDetail';
+import StarsInfo from './components/StarsInfo';
+
 function App() {
   const [userInfo, setUserInfo] = useState(null);
 
@@ -28,6 +31,9 @@ function App() {
         <Route path="/satellites" element={<SatellitesSearch />} />
         <Route path="/satellitesMapPage" element={<SatelliteMapPage />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/constellations" element={<StarsInfo />} />
+        <Route path="/constellations/:name" element={<ConstellationDetail />} />
+        {/* <Route path="/starsCharts" element={<StarsChart />} /> */}
       </Route>
     </Routes>
   );

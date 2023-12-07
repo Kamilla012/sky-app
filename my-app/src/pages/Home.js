@@ -1,10 +1,11 @@
 import React from 'react'
 import SateliteInfo from '../components/SateliteInfo'
-import { StarsInfo } from '../components/StarsInfo'
+
 import SolarSystem from './SolarSystem'
 import Tiles from '../components/Tiles'
 import Slider from '../components/Slider'
 import SatelliteMap from '../components/SatelliteMap'
+import StarsInfo from '../components/StarsInfo'
 
 
 const Home = () => {
@@ -21,7 +22,7 @@ const Home = () => {
     <Tiles />
   
     {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
-    <StarsInfo/>
+    <StarsInfo />
     {/* <IndexPage showAllPosts={false} />
     </div> */}
 
