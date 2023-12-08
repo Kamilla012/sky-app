@@ -1,7 +1,8 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import constellationsData from '../data/constellationsData';
 import styles from '../style';
+import skyNight from '../images/backgrounds/skyNight.svg'
 
 const ConstellationDetail = () => {
   const { name } = useParams();
@@ -34,33 +35,32 @@ const ConstellationDetail = () => {
   }
 
   return (
-    <div className='text-white flex justify-between'>
+    <div className='text-white flex flex-col lg:flex-row'>
       <div className='flex flex-col items-center '>
-        
-          <h2 className={`${styles.h2}`}>{` ${currentConstellation.name}`}</h2>
-          <p className='w-2/4'>{currentConstellation.text}</p>
-          <div className='m-10'>
-            <img src={currentConstellation.image} alt={name} className='w-[70%]' />
-          </div>
-  
+        <h2 className={`${styles.h2}`}>{` ${currentConstellation.name}`}</h2>
+        <p className='w-4/5'>{currentConstellation.text}</p>
+        <div className='m-10 flex justify-center'>
+          {/* <img src={currentConstellation.image} alt={name} className='w-[80%]' /> */}
+          <img src={skyNight} alt="Sky Night" />
+        </div>
       </div>
-      <div className='w-2/4'>
-
-      <p>{currentConstellation.description}</p>
-
-      {/* Display links to the previous constellations */}
-      <div>
+      <div className='flex flex-col justify-center items-center'>
+        <h3 className={`${styles.h3} text-green`}>Other constellations</h3>
+        {/* Display links to the previous constellations */}
         {previousConstellations.map((prevConstellation, index) => (
-          <p key={index}>{prevConstellation.name}</p>
+          <Link to={`/constellations/${prevConstellation.name}`} key={index} className={`${styles.sideBarElement}`}>
+            <p className='text-[30px] mx-10'>{prevConstellation.name}</p>
+            <img src={prevConstellation.imageSymbolic} alt={`${prevConstellation.name} + symbol`} />
+          </Link>
         ))}
-      </div>
 
-      {/* Display links to the next constellations */}
-      <div>
+        {/* Display links to the next constellations */}
         {nextConstellations.map((nextConstellation, index) => (
-          <p key={index}>{nextConstellation.name}</p>
+          <Link to={`/constellations/${nextConstellation.name}`} key={index} className={`${styles.sideBarElement}`}>
+            <p className='text-[30px] mx-10'>{nextConstellation.name}</p>
+            <img src={nextConstellation.imageSymbolic} alt={`${nextConstellation.name} + symbol`} />
+          </Link>
         ))}
-      </div>
       </div>
     </div>
   );
