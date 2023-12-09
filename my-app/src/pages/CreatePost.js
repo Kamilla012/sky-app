@@ -43,9 +43,9 @@ export default function CreatePost(){
         return <Navigate to={'/'} />
     }
     return(
-        <div className={`${styles.divForm}`}>
+        <div className={`${styles.divForm} border-none`}>
             
-        <form className={`${styles.form}`} onSubmit={createNewPost}>
+        <form className={`${styles.form} w-[800px] border-2 border-green rounded-lg m-10`} onSubmit={createNewPost}>
         <h2 className={`${styles.h2}`}>Create your post!</h2>
             <input type="title"
                 placeholder={'Title'}
@@ -68,7 +68,7 @@ export default function CreatePost(){
 
             {/* <textarea name="" id="" cols="30" rows="10"></textarea> */}
             <ReactQuill 
-            className="text-white border-green-500"
+            className="text-white border-green-500 max-w-[500]"
             value={content}
             onChange={value => setContent(value)}
             formats={formats}
