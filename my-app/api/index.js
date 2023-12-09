@@ -160,7 +160,7 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
   jwt.verify(token, secret, {}, async (err,info) => {
     if (err) throw err;
     const {title,summary,content} = req.body;
-
+    console.log("Decoded Token Information:", info);
     const postDoc = await Post.create({
       title,
       summary,
@@ -190,6 +190,85 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Dodawanie polubienia
+app.post('/post/:id/like', async (req, res) => {
+  const postId = req.params.id;
+  const { token } = req.cookies;
+
+  try {
+      const decodedToken = jwt.verify(token, secret);
+      const userId = decodedToken.id;
+
+      const post = await Post.findById(postId);
+
+      if (!post) {
+          return res.status(404).json({ message: 'Post not found' });
+      }
+
+      await post.like(userId);
+
+      res.json({ likes: post.likes.length });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Wyświetlanie liczby polubień
+app.get('/post/:id/likes', async (req, res) => {
+  const postId = req.params.id;
+
+  try {
+      const post = await Post.findById(postId);
+
+      if (!post) {
+          return res.status(404).json({ message: 'Post not found' });
+      }
+
+      res.json({ likes: post.likes.length });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+
+// Usuwanie polubienia
+app.post('/post/:id/unlike', async (req, res) => {
+  const postId = req.params.id;
+  const { token } = req.cookies;
+
+  try {
+      const decodedToken = jwt.verify(token, secret);
+      const userId = decodedToken.id;
+
+      const post = await Post.findById(postId);
+
+      if (!post) {
+          return res.status(404).json({ message: 'Post not found' });
+      }
+
+      await post.unlike(userId);
+
+      res.json({ likes: post.likes.length });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 app.get('/satellites', async (req, res) => {
   try {

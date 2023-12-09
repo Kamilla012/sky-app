@@ -19,11 +19,11 @@ export default function IndexPage({ showAllPosts }) {
 
           setPosts(sortedPosts);
         } else {
-          console.error("Otrzymana odpowiedź nie jest tablicą:", data);
+          console.error("Not array:", data);
         }
       })
       .catch(error => {
-        console.error("Błąd podczas pobierania danych:", error);
+        console.error("Error:", error);
       });
   }, [showAllPosts]);
 
