@@ -21,6 +21,12 @@ const Satellite = require('./models/Satellites');
 const Planets = require('./models/Planets')
 
 
+///add socket.io conf
+const http = require('http');
+const server = http.createServer(app)
+const { Server } = require("socket.io");
+const io = new Server(server) 
+
 app.use(cors({
   credentials: true,
   origin: 'http://localhost:3000',
@@ -47,7 +53,19 @@ async function connectToDatabase() {
   }
 }
 
+
+//io
+
+
+
 connectToDatabase();
+
+io.on('connection', (socket) =>{
+  console.log('a user conncected', socket.id)
+})
+
+
+
 app.post('/register', async (req, res) => {
   const { fname, lname, username, email,  password } = req.body;
 
