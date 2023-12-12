@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Post from "../components/Post";
 
-export default function IndexPage({ showAllPosts }) {
+export default function IndexPage({ showAllPosts, userId }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function IndexPage({ showAllPosts }) {
   return (
     <div className="bg-primary">
       {posts.length > 0 && posts.map(post => (
-        <Post {...post} key={post.id} />
+        <Post {...post} userId={userId} key={post.id} />
       ))}
     </div>
     
