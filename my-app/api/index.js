@@ -19,10 +19,9 @@ const fs = require("fs");
 const Post = require("./models/Post");
 const Satellite = require("./models/Satellites");
 const Planets = require("./models/Planets");
-<<<<<<< HEAD
+
 const { updateLikeCount } = require('./controllers/postsController')
-=======
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
+
 
 ///add socket.io conf
 const io = require("socket.io")(4001, {
@@ -59,7 +58,7 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-<<<<<<< HEAD
+
 // io.on("connection", (socket) => {
 //   console.log("a user conncected", socket.id);
 // });
@@ -75,10 +74,10 @@ connectToDatabase();
 // app.use(express.json());
 // app.use(cookieParser());
 // app.use("/uploads", express.static(__dirname + "/uploads"));
-=======
+
 io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
+
 
   socket.on("likeAdded", async (data) => {
       console.log(`Like added for post ${data.postId}. Liked: ${data.isLiked}`);
@@ -87,7 +86,7 @@ io.on("connection", (socket) => {
       const updateOperator = data.isLiked ? 1 : -1;
       await Post.findByIdAndUpdate(data.postId, { $inc: { likes: updateOperator } });
 
-<<<<<<< HEAD
+
 // io.on("connection", (socket) => {
 //   console.log("a user connected", socket.id);
 
@@ -102,159 +101,16 @@ io.on("connection", (socket) => {
 //   });
 // });
 
-
-
-// io.on('connection', (socket) => {
-//   console.log("a user connected", socket.id);
-
-//   socket.on('likeUpdateRequest', async (data) => {
-//       try {
-//           // Aktualizacja liczby polubień w bazie danych
-//           const updatedPost = await updateLikeCount(data.postId, data.isLiked);
-
-//           // Emitowanie zdarzenia do innych klientów
-//           io.emit('likeUpdate', { postId: data.postId, likeCount: updatedPost.likes });
-//       } catch (error) {
-//           console.error('Error updating post likes:', error);
-//       }
-//   });
-
-//   socket.on('disconnect', () => {
-//       console.log('User disconnected', socket.id);
-//   });
-// });
-
-
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
 
-  socket.on('likeUpdateRequest', async (data) => {
-    try {
-      const post = await Post.findByIdAndUpdate(
-        data.postId,
-        {
-          $inc: { likes: data.isLiked ? 1 : -1 },
-        },
-        { new: true }
-      );
-  
-      const user = await User.findById(data.userId);
-        
-      if (user) {
-        const likedPostsIndex = user.likedPosts.indexOf(data.postId);
-        if (data.isLiked && likedPostsIndex === -1) {
-          user.likedPosts.push(data.postId);
-        } else if (!data.isLiked && likedPostsIndex !== -1) {
-          user.likedPosts.splice(likedPostsIndex, 1);
-        }
-        await user.save();
-      }
-  
-      // Emitowanie zdarzenia do innych klientów
-      io.emit('likeUpdate', { postId: data.postId, likeCount: post.likes });
-    } catch (error) {
-      console.error('Error updating post likes:', error);
-    }
-  });
-  
 
-  socket.on('disconnect', () => {
-      console.log('User disconnected', socket.id);
-  });
-});
+  socket.on("likeAdded", async (data) => {
+      console.log(`Like added for post ${data.postId}. Liked: ${data.isLiked}`);
 
-
-app.get("/posts/:postId/likes", async (req, res) => {
-  const postId = req.params.postId;
-
-  try {
-    const post = await Post.findById(postId);
-    if (post) {
-      res.json({ likeCount: post.likes });
-    } else {
-      res.status(404).json({ error: "Post not found" });
-    }
-  } catch (error) {
-    console.error("Error fetching likes:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-
-// app.post("/user/likePost/:postId", async (req, res) => {
-//   const { token } = req.cookies;
-//   const { postId } = req.params;
-
-//   try {
-//     const { id: userId } = jwt.verify(token, secret);
-
-//     // Znajdź użytkownika
-//     const user = await User.findById(userId);
-
-//     if (user) {
-//       // Sprawdź, czy post jest już polubiony przez użytkownika
-//       if (!user.likedPosts.includes(postId)) {
-//         // Dodaj ID posta do tablicy likedPosts
-//         user.likedPosts.push(postId);
-
-//         // Zapisz dokument użytkownika w bazie danych
-//         await user.save();
-
-//         res.json({ success: true, message: "Post liked successfully" });
-//       } else {
-//         res.json({ success: false, message: "Post already liked" });
-//       }
-//     } else {
-//       res.status(404).json({ success: false, message: "User not found" });
-//     }
-//   } catch (error) {
-//     console.error("Error liking post:", error);
-//     res.status(500).json({ success: false, message: "Internal Server Error" });
-//   }
-// });
-
-
-
-
-
-
-
-// io.on('connection', (socket) => {
-//   socket.on('likeUpdate', async (data) => {
-//       try {
-//           const { postId, isLiked } = data;
-
-//           // Find the post by ID
-//           const post = await Post.findById(postId);
-
-//           // Update the likes count based on the isLiked flag
-//           post.likes = isLiked ? post.likes + 1 : post.likes - 1;
-
-//           // Save the updated post to the database
-//           await post.save();
-
-//           // Broadcast the updated like count to all connected clients
-//           io.emit('likeUpdate', { postId, likeCount: post.likes });
-//       } catch (error) {
-//           console.error('Error updating likes:', error);
-//       }
-//   });
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
+      // Zaktualizuj liczbę polubień w bazie danych
+      const updateOperator = data.isLiked ? 1 : -1;
+      await Post.findByIdAndUpdate(data.postId, { $inc: { likes: updateOperator } });
       // Opcjonalnie, możesz przekazać informację do wszystkich połączonych klientów
       io.emit("likeUpdate", { postId: data.postId, isLiked: data.isLiked });
   });
@@ -265,7 +121,7 @@ app.get("/posts/:postId/likes", async (req, res) => {
   });
 });
 
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
+
 app.post("/register", async (req, res) => {
   const { fname, lname, username, email, password } = req.body;
 
@@ -371,13 +227,9 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   const newPath = path + "." + ext;
   fs.renameSync(path, newPath);
 
-<<<<<<< HEAD
-=======
 
 
 
-
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
     if (err) throw err;
@@ -392,7 +244,7 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
     });
     res.json(postDoc);
   });
-<<<<<<< HEAD
+
 });
 
 
@@ -410,14 +262,17 @@ app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
 
 
 
-
-=======
 
 
   
 });
 
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
+
+
+  
+});
+
+
 app.get("/post", async (req, res) => {
   const posts = await Post.find()
     .populate("author", ["username"])
@@ -431,12 +286,11 @@ app.get("/post/:id", async (req, res) => {
   const { id } = req.params;
   const postDoc = await Post.findById(id).populate("author", ["username"]);
   res.json(postDoc);
-<<<<<<< HEAD
+
 });
 
 
-=======
-});
+
 
 // Dodawanie polubienia
 app.post("/post/:id/like", async (req, res) => {
@@ -504,7 +358,7 @@ app.post("/post/:id/unlike", async (req, res) => {
   }
 });
 
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
+
 app.get("/satellites", async (req, res) => {
   try {
     const searchQuery = req.query.search;

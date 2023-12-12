@@ -1,19 +1,19 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-<<<<<<< HEAD
+
+
 import { format } from "date-fns";
-=======
-import { format, formatISO9075 } from "date-fns";
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
+
+
+// import { format, formatISO9075 } from "date-fns";
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 
-<<<<<<< HEAD
-const socket = io.connect("http://localhost:4001/", {
-=======
+
 const socket = io.connect("http://localhost:4001/",{
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
+
   reconnection: true
 });
 
@@ -25,7 +25,8 @@ export default function Post({
   content,
   createdAt,
   author,
-<<<<<<< HEAD
+
+
   userId, 
 }) {
   useEffect(() => {
@@ -79,39 +80,12 @@ export default function Post({
     };
   }, [_id, userId]);
 
-=======
-}) {
+
   // Tworzymy pełną ścieżkę do obrazu, łącząc ścieżkę frontendu z nazwą pliku obrazu
 
   useEffect(() => {
     console.log("SOCKET IO", socket);
   }, []);
-
-  const [isHeartRed, setHeartRed] = useState(false);
-  const [likeCount, setLikeCount] = useState(0);
-
-  // Funkcja obsługująca kliknięcie
-  const handleClick = () => {
-    setHeartRed(!isHeartRed);
-    // Zamiast używać prevCount, użyj bezpośrednio aktualnego stanu
-   
-    socket.emit('likeAdded', { postId: _id, isLiked: !isHeartRed });
-  };
-  useEffect(() => {
-    socket.on('likeUpdate', (data) => {
-      if (data.postId === _id) {
-        const likeChange = data.isLiked ? 1 : -1;
-        setLikeCount((prevCount) => prevCount + likeChange);
-      }
-    });
-  
-    return () => {
-      // Clean up the socket listener when the component unmounts
-      socket.off('likeUpdate');
-    };
-  }, [_id]);
-
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
   return (
     <div className="w-[50%] text-[white] mt-10 my-5 grid-cols-2 gap-20">
       <div>
@@ -140,7 +114,7 @@ export default function Post({
         />
       </div>
 
-<<<<<<< HEAD
+
       <FontAwesomeIcon
         icon={faHeart}
         className="text-[30px]"
@@ -148,17 +122,11 @@ export default function Post({
         onClick={handleClick}
       />
       <p className="text-[16px]">Likes: {likeCount}</p>
-=======
-        <FontAwesomeIcon icon={faHeart}
-        className="text-[30px]"
-        style={{ color: isHeartRed ? 'red' : 'white' }} 
-        onClick={handleClick}
-        />
-        <p className="text-[16px]">Likes: {likeCount}</p>
+
+      
         
 
 
->>>>>>> e06f1c97c0b5519c1cfc8e3dc5ea82a8919ff8ff
     </div>
   );
 }
