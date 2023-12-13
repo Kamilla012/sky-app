@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { format } from "date-fns";
+import { format, formatISO9075 } from "date-fns";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { io } from "socket.io-client";
@@ -18,23 +18,36 @@ export default function Post({
   createdAt,
   author,
 }) {
+  useEffect(() => {
+    console.log("SOCKET IO", socket);
+  }, []);
+
   const [isHeartRed, setHeartRed] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
 
-  const handleClick = () => {
-    setHeartRed(!isHeartRed);
-    const newLikeCount = isHeartRed ? likeCount - 1 : likeCount + 1;
-    setLikeCount(newLikeCount);
 
-    // Emitowanie zdarzenia do serwera socket.io
-    socket.emit('likeAdded', { postId: _id, isLiked: !isHeartRed });
-  };
+//   const handleClick = () => {
+//     setHeartRed(!isHeartRed);
+//     const newLikeCount = isHeartRed ? likeCount - 1 : likeCount + 1;
+//     setLikeCount(newLikeCount);
 
+//     // Emitowanie zdarzenia do serwera socket.io
+//     socket.emit('likeAdded', { postId: _id, isLiked: !isHeartRed });
+// };
+
+const handleClick = () => {
+  setHeartRed(!isHeartRed);
+  const newLikeCount = isHeartRed ? likeCount - 1 : likeCount + 1;
+  setLikeCount(newLikeCount);
+
+  // Wysyłanie zdarzenia do serwera
+  socket.emit('likeUpdateRequest', { postId: _id, isLiked: !isHeartRed });
+};
   useEffect(() => {
     // Odbieranie zdarzenia od serwera socket.io
     socket.on('likeUpdate', (data) => {
       if (data.postId === _id) {
-        // setLikeCount(data.isLiked ? likeCount + 1 : likeCount - 1);
+        setLikeCount(data.likeCount);
       }
     });
 
@@ -42,7 +55,25 @@ export default function Post({
     return () => {
       socket.off('likeUpdate');
     };
-  }, [_id, likeCount]);
+  }, [_id]);
+
+  useEffect(() => {
+    const fetchLikeCount = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/posts/${_id}/likes`);
+        const data = await response.json();
+        setLikeCount(data.likeCount);
+      } catch (error) {
+        console.error("Error fetching like count:", error);
+      }
+    };
+  
+    fetchLikeCount();
+
+    return () => {
+      // Czyszczenie zasobów, jeśli to konieczne
+    };
+  }, [_id]);
   return (
     <div className="w-[50%] text-[white] mt-10 my-5 grid-cols-2 gap-20">
       <div>
@@ -70,6 +101,7 @@ export default function Post({
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </div>
+
       <FontAwesomeIcon
         icon={faHeart}
         className="text-[30px]"
@@ -78,6 +110,5 @@ export default function Post({
       />
       <p className="text-[16px]">Likes: {likeCount}</p>
     </div>
-   
   );
 }

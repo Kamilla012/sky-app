@@ -65,18 +65,75 @@ connectToDatabase();
 // });
 
 
-io.on("connection", (socket) => {
-  console.log("a user connected", socket.id);
 
-  socket.on("likeAdded", (data) => {
-    console.log(`Like added for post ${data.postId}. Liked: ${data.isLiked}`);
-    io.emit("likeUpdate", { postId: data.postId, isLiked: data.isLiked });
+io.on("connection", (socket) => {
+  console.log("a user connected");
+
+  socket.on("likeUpdateRequest", async (data) => {
+    try {
+      const post = await Post.findByIdAndUpdate(
+        data.postId,
+        {
+          $inc: { likes: data.isLiked ? 1 : -1 },
+        },
+        { new: true }
+      );
+
+      io.emit("likeUpdate", { postId: data.postId, likeCount: post.likes });
+    } catch (error) {
+      console.error("Error updating like:", error);
+    }
   });
 
   socket.on("disconnect", () => {
-    console.log("User disconnected", socket.id);
+    console.log("user disconnected");
   });
 });
+
+app.get("/posts/:postId/likes", async (req, res) => {
+  const postId = req.params.postId;
+
+  try {
+    const post = await Post.findById(postId);
+    if (post) {
+      res.json({ likeCount: post.likes });
+    } else {
+      res.status(404).json({ error: "Post not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching likes:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+
+
+
+// io.on("connection", (socket) => {
+//   console.log("a user connected", socket.id);
+
+//   socket.on("likeAdded", async (data) => {
+//       console.log(`Like added for post ${data.postId}. Liked: ${data.isLiked}`);
+
+//       try {
+//           const post = await Post.findById(data.postId);
+
+//           if (post) {
+//               post.likes = data.isLiked ? post.likes + 1 : post.likes - 1;
+//               await post.save();
+
+//               io.emit("likeUpdate", { postId: data.postId, isLiked: data.isLiked });
+//           }
+//       } catch (error) {
+//           console.error("Error updating likes:", error);
+//       }
+//   });
+
+//   socket.on("disconnect", () => {
+//       console.log("User disconnected", socket.id);
+//   });
+// });
+
 
 
 
