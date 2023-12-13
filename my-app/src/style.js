@@ -8,6 +8,7 @@ const styles = {
     p: "text-white text-[15px]",
     h3: "text-[35px] font-bold",
     h4: "text-[30px]",
+    h5: "text-[25px] font-bold text-green mb-5 text-center",
 
     tableTr: "rounded-lg border-2 border-green text-white",
     tableTd: "py-1 px-1 text-center text-[12px]",

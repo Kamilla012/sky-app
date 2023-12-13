@@ -1,6 +1,8 @@
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Navigation from "./Navigation";
+import FooterIndex from "./FooterIndex";
+
 
 
 
@@ -16,7 +18,7 @@ export default function Layout({ children, userInfo, setUserInfo }){
             </div>
             <Navigation />
             <Outlet />
-          
+            <FooterIndex />
 
         </main>
     )
