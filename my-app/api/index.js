@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
 const saltRounds = 10; // Zalecam wykorzystanie bardziej losowo generowanej soli.
-const username = "admin";
+// const username = "admin";
 // const password = 'i5ri1fNyrrImBiDp';
 const jwt = require("jsonwebtoken");
 // const encodedPassword = encodeURIComponent(password);
 const secret = "gdgfcds76f7asg";
-const connectionString = `mongodb+srv://admin:admin@cluster0.ejp2zb5.mongodb.net/`;
+const connectionString = `mongodb+srv://admin:1234@cluster0.ejp2zb5.mongodb.net/`;
 const User = require("./models/User");
 const cookieParser = require("cookie-parser");
 const multer = require("multer");
