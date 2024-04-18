@@ -6,7 +6,7 @@ import Tiles from '../components/Tiles'
 import Slider from '../components/Slider'
 import SatelliteMap from '../components/SatelliteMap'
 import StarsInfo from '../components/StarsInfo'
-
+import FooterIndex from '../components/FooterIndex'
 
 const Home = () => {
   return (
@@ -29,6 +29,7 @@ const Home = () => {
   
       <SolarSystem />
       <Slider />
+      <FooterIndex />
     </div>
 
   )

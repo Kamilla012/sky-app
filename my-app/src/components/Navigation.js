@@ -59,19 +59,19 @@ const Navigation = () => {
       setMenuHeight(height);
     }
 
-    const DropDownItem = (props) => {
-      return (
-        <a
-          href="#"
-          onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
-          className='h-[50px] transition ease-in-out delay-150 rounded-lg mx-3 my-2 p-2 flex align-center justify-center bg-bgNavAccent hover:brightness-200'
-        >
-          <span>{props.leftIcon}</span>
-          {props.children}
-          <span>{props.rightIcon}</span>
-        </a>
-      );
-    };
+    // const DropDownItem = (props) => {
+    //   return (
+    //     <a
+    //       href="#"
+    //       onClick={() => props.goToMenu && setActiveMenu(props.goToMenu)}
+    //       className='h-[50px] transition ease-in-out delay-150 rounded-lg mx-3 my-2 p-2 flex align-center justify-center bg-bgNavAccent hover:brightness-200'
+    //     >
+    //       <span>{props.leftIcon}</span>
+    //       {props.children}
+    //       <span>{props.rightIcon}</span>
+    //     </a>
+    //   );
+    // };
 
     return (
       <div
@@ -95,12 +95,12 @@ const Navigation = () => {
             </DropDownItem>
           </div>
         </CSSTransition> */}
-         <div>
+         {/* <div>
             <DropDownItem>My profile</DropDownItem>
             <DropDownItem leftIcon=":>" rightIcon=":<" goToMenu="settings">
               Settings
             </DropDownItem>
-          </div>
+          </div> */}
 
         {/* <CSSTransition
           in={activeMenu === 'settings'}
@@ -128,12 +128,12 @@ const Navigation = () => {
 
       
      
-      <NavItem icon={faMoon} />
+
       <NavItem icon={faPenToSquare} path="/create" />
       <NavItem icon={faBook} path="/blog" />
-      <NavItem icon={faCircleDown}>
+      {/* <NavItem icon={faCircleDown}>
         <DropDownMenu />
-      </NavItem>
+      </NavItem> */}
     </Navbar>
   );
 };

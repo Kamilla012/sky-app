@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { format, formatISO9075 } from "date-fns";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-
+import FooterIndex from "../components/FooterIndex";
 export default function PostPage() {
     const [postInfo,setPostInfo] = useState(null);
     // const {userInfo} = useContext(UserContext);
@@ -46,7 +46,9 @@ export default function PostPage() {
             <p className="text-white" dangerouslySetInnerHTML={{__html: postInfo.content}} />
             
           </div>
+          <FooterIndex />
         </div>
+        
       );
       
 }

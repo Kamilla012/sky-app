@@ -3,7 +3,7 @@ import 'react-quill/dist/quill.snow.css';
 import styles from "../style";
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-
+import FooterIndex from "../components/FooterIndex";
 const modules = {
     toolbar:[
         [{'header': [1, 2, false]}]
@@ -43,10 +43,12 @@ export default function CreatePost(){
         return <Navigate to={'/'} />
     }
     return(
+        <div>
         <div className={`${styles.divForm} border-none`}>
             
         <form className={`${styles.form} w-[800px] border-2 border-green rounded-lg m-10`} onSubmit={createNewPost}>
-        <h2 className={`${styles.h2}`}>Create your post!</h2>
+            <p className="text-[25px] font-bold text-green-500 mt-1 text-white text-center">Function still in development</p>
+        <h2 className={`${styles.h2}`}>Create your post! - still in development!</h2>
             <input type="title"
                 placeholder={'Title'}
                 className={`${styles.inputForm}`}
@@ -75,6 +77,12 @@ export default function CreatePost(){
             />
             <button className={`${styles.buttonForm} mt-8`}>Create post</button>
         </form>
+       
+        
         </div>
+         <div>
+         <FooterIndex />
+         </div>
+         </div>
     )
 }

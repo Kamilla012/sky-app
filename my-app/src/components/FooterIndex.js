@@ -55,10 +55,10 @@ const FooterIndex = () => {
 
       <div className="mx-10">
       <h5 className={`${styles.h5}`}>Sign up</h5>
-        <div className='flex flex-col'>
-            <p>Log in/ Create an account</p>
+        <div className='flex flex-col '>
+        
          
-                <Link to="./login" className='bg-[green] w-[300px] h-[50px] rounded-md text-[20px] text-center my-3 p-2'>Login</Link>
+                {/* <Link to="./login" className='bg-[green] w-[300px] h-[50px] rounded-md text-[20px] text-center my-3 p-2'>Login</Link> */}
      
             
             <Link to="./register" className=" w-[300px] h-[50px] rounded-md text-[20px] p-2 border border-green  text-center text-white">Register</Link>

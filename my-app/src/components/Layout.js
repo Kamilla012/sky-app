@@ -12,14 +12,15 @@ import FooterIndex from "./FooterIndex";
 export default function Layout({ children, userInfo, setUserInfo }){
     return(
         <main className="bg-primary min-h-[100vh]">
-             <div>
+             {/* <div>
              <Header userInfo={userInfo} setUserInfo={setUserInfo} />
                 {children}
-            </div>
+            </div> */}
             <Navigation />
             <Outlet />
-            <FooterIndex />
+           
 
         </main>
+        
     )
 }
