@@ -1,6 +1,3 @@
-
-Sure, here's the complete README in English:
-
 AstronomiaApp
 AstronomiaApp is an application designed for astronomy enthusiasts, providing access to various information about satellites and interactive sky observation features.
 
