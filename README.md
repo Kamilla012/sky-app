@@ -5,10 +5,10 @@ SkyApp is an application designed for astronomy enthusiasts, providing access to
 Technologies
 The application is built using the following technologies:
 
-React: Utilized for building the user interface.
-MongoDB: Database storing information about satellites and planets.
-Tailwind CSS: CSS framework facilitating rapid and responsive styling.
-Leaflet: JavaScript library for rendering interactive maps.
+-React: Utilized for building the user interface.
+-MongoDB: Database storing information about satellites and planets.
+-Tailwind CSS: CSS framework facilitating rapid and responsive styling.
+-Leaflet: JavaScript library for rendering interactive maps.
 Features
 Satellite Search
 The application allows users to retrieve information about satellites by entering the satellite's name or country name in the search bar. All available data is fetched from our MongoDB database.
